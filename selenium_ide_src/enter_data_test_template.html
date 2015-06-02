@@ -73,6 +73,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForText</td>
+	<td>css=.queue-length</td>
+	<td>0</td>
+</tr>
+<tr>
 	<td>assertElementPresent</td>
 	<td>id=submit-form</td>
 	<td></td>
@@ -84,24 +89,19 @@
 </tr>
 <!--Ensure that the data was submitted and no alerts were generated.-->
 <tr>
-	<td>waitForElementPresent</td>
-	<td>css=#feedback-bar p</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementNotPresent</td>
-	<td>css=#feedback-bar p</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>css=#dialog-alert .modal-header h3</td>
-	<td></td>
+	<td>waitForText</td>
+	<td>css=.queue-length</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>waitForText</td>
 	<td>css=.queue-length</td>
 	<td>0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#dialog-alert .modal-header</td>
+	<td></td>
 </tr>
 <tr>
 	<td>open</td>

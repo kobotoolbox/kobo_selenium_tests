@@ -40,28 +40,28 @@ class EnterDataTestTemplate(unittest.TestCase):
         self.assertEqual("Selenium test question choice 1.", driver.find_element_by_css_selector(".question label:nth-child(1) .option-label").text)
         self.assertEqual("Selenium test question choice 2.", driver.find_element_by_css_selector(".question label:nth-child(2) .option-label").text)
         driver.find_element_by_css_selector(".question label:nth-child(1)").click()
-        self.assertTrue(self.is_element_present(By.ID, "submit-form"))
-        driver.find_element_by_id("submit-form").click()
-        # Ensure that the data was submitted and no alerts were generated.
-        for i in range(60):
-            try:
-                if self.is_element_present(By.CSS_SELECTOR, "#feedback-bar p"): break
-            except: pass
-            time.sleep(1)
-        else: self.fail("time out")
-        for i in range(60):
-            try:
-                if not self.is_element_present(By.CSS_SELECTOR, "#feedback-bar p"): break
-            except: pass
-            time.sleep(1)
-        else: self.fail("time out")
-        self.assertEqual("", driver.find_element_by_css_selector("#dialog-alert .modal-header h3").text)
         for i in range(60):
             try:
                 if "0" == driver.find_element_by_css_selector(".queue-length").text: break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
+        self.assertTrue(self.is_element_present(By.ID, "submit-form"))
+        driver.find_element_by_id("submit-form").click()
+        # Ensure that the data was submitted and no alerts were generated.
+        for i in range(60):
+            try:
+                if "1" == driver.find_element_by_css_selector(".queue-length").text: break
+            except: pass
+            time.sleep(1)
+        else: self.fail("time out")
+        for i in range(60):
+            try:
+                if "0" == driver.find_element_by_css_selector(".queue-length").text: break
+            except: pass
+            time.sleep(1)
+        else: self.fail("time out")
+        self.assertEqual("", driver.find_element_by_css_selector("#dialog-alert .modal-header").text)
         driver.get(self.base_url + "selenium_test/forms/Selenium_test_form_title")
         for i in range(60):
             try:
