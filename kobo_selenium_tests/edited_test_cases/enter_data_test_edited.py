@@ -58,9 +58,13 @@ class EnterDataTestEdited(unittest.TestCase):
         self.assertEqual("Selenium test question choice 2.", driver.find_element_by_css_selector(
             ".question label:nth-child(2) .option-label").text)
         driver.find_element_by_css_selector(".question label:nth-child(1)").click()
+        if self.enketo_express:
+            submission_queue_selector= '.offline-enabled__queue-length'
+        else:
+            submission_queue_selector= '.queue-length'
         for i in range(60):
             try:
-                if "0" == driver.find_element_by_css_selector(".queue-length").text:
+                if "0" == driver.find_element_by_css_selector(submission_queue_selector).text:
                     break
             except:
                 pass
@@ -72,7 +76,7 @@ class EnterDataTestEdited(unittest.TestCase):
         # Ensure that the data was submitted and no alerts were generated.
         for i in range(60):
             try:
-                if "1" == driver.find_element_by_css_selector(".queue-length").text:
+                if "1" == driver.find_element_by_css_selector(submission_queue_selector).text:
                     break
             except:
                 pass
@@ -80,21 +84,26 @@ class EnterDataTestEdited(unittest.TestCase):
             # time.sleep(1)
         else:
             self.fail("time out")
-        # FIXME: We consistently timeout waiting for Enketo to clear its queue; find the cause.
-        for i in range(60):
+        if self.enketo_express:
+            # FIXME: We consistently timeout waiting for Enketo to clear its queue; find the cause.
+            submission_queue_timeout= 300
+        else:
+            submission_queue_timeout= 60
+        for i in range(submission_queue_timeout):
             try:
-                if "0" == driver.find_element_by_css_selector(".queue-length").text:
+                if "0" == driver.find_element_by_css_selector(submission_queue_selector).text:
                     break
             except:
                 pass
             time.sleep(1)
         else:
             self.fail("time out")
-        self.assertEqual(
-            "", driver.find_element_by_css_selector("#dialog-alert .modal-header").text)
-        driver.get(self.base_url + "selenium_test/forms/Selenium_test_form_title")
+        if not self.enketo_express:
+            self.assertEqual(
+                "", driver.find_element_by_css_selector("#dialog-alert .modal-header").text)
+        driver.get(self.base_url + self.KOBO_USERNAME + "/forms/Selenium_test_form_title")
         # Close out the "unsaved changes" warning.
-        if self.is_alert_present():
+        if (not self.enketo_express) and self.is_alert_present():
             driver.switch_to_alert().accept()
         for i in range(60):
             try:

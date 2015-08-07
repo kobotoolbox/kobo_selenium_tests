@@ -50,26 +50,36 @@ class PreviewFormTestTemplate(unittest.TestCase):
         driver.switch_to.frame(driver.find_element_by_css_selector(".enketo-holder iframe"))
         for i in range(60):
             try:
-                if self.is_element_present(By.CSS_SELECTOR, ".preview #form-title"): break
+                if self.is_element_present(By.CSS_SELECTOR, "#form-title"): break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
-        self.assertEqual("Selenium test form title.", driver.find_element_by_css_selector(".preview #form-title").text)
-        self.assertEqual("Selenium test question label.", driver.find_element_by_css_selector(".preview .question-label").text)
-        self.assertEqual("Selenium test question choice 1.", driver.find_element_by_css_selector(".preview .question label:nth-child(1) .option-label").text)
-        self.assertEqual("Selenium test question choice 2.", driver.find_element_by_css_selector(".preview .question label:nth-child(2) .option-label").text)
-        driver.find_element_by_css_selector(".preview .question label:nth-child(1)").click()
-        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, ".preview #validate-form"))
-        driver.find_element_by_css_selector(".preview #validate-form").click()
+        self.assertEqual("Selenium test form title.", driver.find_element_by_css_selector("#form-title").text)
+        self.assertEqual("Selenium test question label.", driver.find_element_by_css_selector(".question-label").text)
+        self.assertEqual("Selenium test question choice 1.", driver.find_element_by_css_selector(".question label:nth-child(1) .option-label").text)
+        self.assertEqual("Selenium test question choice 2.", driver.find_element_by_css_selector(".question label:nth-child(2) .option-label").text)
+        driver.find_element_by_css_selector(".question label:nth-child(1)").click()
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#validate-form"))
+        driver.find_element_by_css_selector("#validate-form").click()
         # Wait for validation to complete (validation button progress bar will disappear).
         for i in range(60):
             try:
-                if self.is_element_present(By.CSS_SELECTOR, ".preview #validate-form i"): break
+                if self.is_element_present(By.CSS_SELECTOR, "#validate-form i"): break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
-        # Ensure that no validation warning was reported.
-        self.assertEqual("", driver.find_element_by_css_selector("#dialog-alert .modal-header h3").text)
+        if self.enketo_express:
+            # Wait for and click on the validation success dialog.
+            for i in range(60):
+                try:
+                    if self.is_element_present(By.CSS_SELECTOR, ".alert-box.success"): break
+                except: pass
+                time.sleep(1)
+            else: self.fail("time out")
+#             driver.find_element_by_css_selector(".vex-close").click()
+        else:
+            # Ensure that no validation warning was reported.
+            self.assertEqual("", driver.find_element_by_css_selector("#dialog-alert .modal-header h3").text)
         # Switch back out of the Enketo 'iframe'
         # WARNING: The 'selectWindow' command doesn't export to python, so a manual edit is necessary.
         driver.switch_to.default_content()
