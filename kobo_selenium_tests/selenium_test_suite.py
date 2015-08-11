@@ -42,8 +42,8 @@ class Test_Selenium(empty_test.EmptyTest):
     KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://kc.kobotoolbox.org/')
     if KOBOCAT_URL[-1] != '/':
         KOBOCAT_URL+= '/'
-    KOBO_USERNAME= os.environ.get('KOBO_USERNAME', 'kobo')
-    KOBO_PASSWORD= os.environ.get('KOBO_PASSWORD', 'kobo')
+    KOBO_USERNAME= os.environ.get('KOBO_USERNAME', 'selenium_test')
+    KOBO_PASSWORD= os.environ.get('KOBO_PASSWORD', 'selenium_test')
     KOBO_DISABLE_TIMEOUT= os.environ.get('KOBO_DISABLE_TIMEOUT', False)
     ENKETO_VERSION= os.environ.get('ENKETO_VERSION', 'legacy')
     assert ENKETO_VERSION.lower() in ['legacy', 'express']
