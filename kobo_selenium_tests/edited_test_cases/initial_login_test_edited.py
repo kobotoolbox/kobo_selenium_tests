@@ -25,10 +25,10 @@ class InitialLoginTestTemplate(unittest.TestCase):
             time.sleep(1)
         else: self.fail("time out")
         driver.find_element_by_id("id_username").clear()
-        driver.find_element_by_id("id_username").send_keys("selenium_test")
+        driver.find_element_by_id("id_username").send_keys(self.KOBO_USERNAME)
         self.assertTrue(self.is_element_present(By.ID, "id_password"))
         driver.find_element_by_id("id_password").clear()
-        driver.find_element_by_id("id_password").send_keys("selenium_test")
+        driver.find_element_by_id("id_password").send_keys(self.KOBO_PASSWORD)
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR, ".registration__action"))
         driver.find_element_by_css_selector(".registration__action").click()
         for i in range(60):

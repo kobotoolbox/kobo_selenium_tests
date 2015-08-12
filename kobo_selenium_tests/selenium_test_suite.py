@@ -4,7 +4,6 @@ Created on Oct 31, 2014
 @author: esmail
 '''
 
-from __future__ import absolute_import
 import unittest
 import os
 import time
@@ -36,7 +35,24 @@ class Test_Selenium(empty_test.EmptyTest):
     MAX_SUITE_TIME_MINUTES= 10
     timed_out= False
 
+    # Get settings overrides from the environment.
+    KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'http://kf.kobotoolbox.org/')
+    if KOBOFORM_URL[-1] != '/':
+        KOBOFORM_URL+= '/'
+    KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://kc.kobotoolbox.org/')
+    if KOBOCAT_URL[-1] != '/':
+        KOBOCAT_URL+= '/'
+    KOBO_USERNAME= os.environ.get('KOBO_USERNAME', 'selenium_test')
+    KOBO_PASSWORD= os.environ.get('KOBO_PASSWORD', 'selenium_test')
+    KOBO_DISABLE_TIMEOUT= os.environ.get('KOBO_DISABLE_TIMEOUT', False)
+    ENKETO_VERSION= os.environ.get('ENKETO_VERSION', 'legacy')
+    assert ENKETO_VERSION.lower() in ['legacy', 'express']
+    enketo_express= ENKETO_VERSION.lower() == 'express'
+
     def check_timeout(self, status_message=''):
+        if self.KOBO_DISABLE_TIMEOUT:
+            return
+
         minutes_elapsed= (time.time() - self.suite_start_time) / 60
         if minutes_elapsed >= self.MAX_SUITE_TIME_MINUTES:
             self.timed_out= True
@@ -56,7 +72,7 @@ class Test_Selenium(empty_test.EmptyTest):
         # Copied from http://stackoverflow.com/a/18440478/1877326.
         # To prevent download dialog
         profile = webdriver.FirefoxProfile()
-        profile.set_preference('browser.download.folderList', 2) # custom location
+        profile.set_preference('browser.download.folderList', 2) # 2 -> custom location
         profile.set_preference('browser.download.manager.showWhenStarting', False)
         profile.set_preference('browser.download.dir', '/tmp')
         profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
@@ -84,11 +100,6 @@ class Test_Selenium(empty_test.EmptyTest):
 #         self.assertEqual([], self.verificationErrors)
 
     # TODO: Delete "selenium" user and associated data from DB after testing.
-
-
-    # Record the base URLs to use for KoBoForm and KoBoCAT
-    KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'http://kf.kobotoolbox.org/')
-    KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://kc.kobotoolbox.org/')
 
 #     # SCIENCE!!! Want to automatically generate test methods, but it seems like it will require 'metaclass' magic... http://stackoverflow.com/a/13579703/1877326
 #     # Tuples of the step number, base URL for the step, Selenium 'TestCase' subclass, and test method.
