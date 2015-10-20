@@ -117,6 +117,17 @@ class EnterDataTestEdited(unittest.TestCase):
         self.assertEqual("Submissions (1)", driver.find_element_by_css_selector(
             ".dashboard__submissions .dashboard__group-label").text)
 
+        # Verify that the QR code is present.
+        driver.find_element_by_css_selector(".dashboard__button-how-to-collect").click()
+        for i in range(60):
+            try:
+                if "How to Collect Data on a Mobile Device" == driver.find_element_by_css_selector("div.vex-content.vex-content-large > #popupmodal > div.vex-header > h3").text: break
+            except: pass
+            time.sleep(1)
+        else: self.fail("time out")
+
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, ".vex-content .qrcode__code img.qrcode"))
+
     def is_element_present(self, how, what):
         try:
             self.driver.find_element(by=how, value=what)
