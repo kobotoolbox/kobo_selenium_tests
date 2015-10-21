@@ -3,6 +3,7 @@ import unittest
 import time
 import re
 
+import requests
 from selenium import webdriver
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import NoSuchElementException
@@ -24,6 +25,7 @@ class EnterDataTestEdited(unittest.TestCase):
         driver = self.driver
         driver.get(self.base_url + "")
         self.assertTrue(self.is_element_present(By.LINK_TEXT, "Selenium test form title."))
+        project_url= driver.find_elements_by_link_text("Selenium test form title.")[0].get_attribute("href")
         driver.find_element_by_link_text("Selenium test form title.").click()
         for i in range(60):
             try:
@@ -117,16 +119,18 @@ class EnterDataTestEdited(unittest.TestCase):
         self.assertEqual("Submissions (1)", driver.find_element_by_css_selector(
             ".dashboard__submissions .dashboard__group-label").text)
 
-        # Verify that the QR code is present.
+        # Verify that the QR code image is present.
         driver.find_element_by_css_selector(".dashboard__button-how-to-collect").click()
         for i in range(60):
             try:
-                if "How to Collect Data on a Mobile Device" == driver.find_element_by_css_selector("div.vex-content.vex-content-large > #popupmodal > div.vex-header > h3").text: break
+                if self.is_element_present(By.CSS_SELECTOR, ".vex-content .qrcode__code img.qrcode"): break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
 
-        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, ".vex-content .qrcode__code img.qrcode"))
+        # Verify that the QR code is retrievable.
+        response= requests.get(project_url + '/qrcode', allow_redirects=False)
+        self.assertEqual(response.status_code, 200)
 
     def is_element_present(self, how, what):
         try:
