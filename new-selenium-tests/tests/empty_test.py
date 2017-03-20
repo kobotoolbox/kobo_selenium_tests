@@ -45,9 +45,9 @@ class EmptyTest(unittest.TestCase):
         return True
 
     def is_element_present_with_wait(self, how, what, how_long=60):
-        # message = "Looking for: " +how+ " for: " + what
+        message = "Looking for: " +how+ " for: " + what
         for i in range(how_long):
-            # print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
+            print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
             if self.is_element_present(how, what):
                 break
             sleep(1)
@@ -113,7 +113,7 @@ class EmptyTest(unittest.TestCase):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
         more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
         more_actions_el[0].click()
-
+        print "Yo"
         sleep(2)
 
         #click on the Delete button
@@ -125,19 +125,25 @@ class EmptyTest(unittest.TestCase):
         sleep(2)
 
         #make sure the confirmation pop-up appears
-        # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".ajs-dialog"))
+        self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".ajs-dialog"))
 
+
+        # try:
+        # dialog = driver.find_element_by_css_selector(".ajs-dialog")
         try:
-            dialog = driver.find_element_by_css_selector(".ajs-dialog")
-            delete_confirmation_checkboxes = dialog.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
+            delete_confirmation_checkboxes = driver.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
+            print len(delete_confirmation_checkboxes)
             if len(delete_confirmation_checkboxes) > 0: #if this is a deployed form otherwise skip this step
                 #check all the dialog's checkboxes
                 for checkbox in delete_confirmation_checkboxes:
                     if not checkbox.get_attribute('checked'):
                         checkbox.click()
-            dialog.find_element_by_xpath('//button[text()="Delete"]').click()
-        except NoAlertPresentException:
-            pass
+            driver.execute_script("document.querySelectorAll('.ajs-dialog .ajs-ok')[0].click()")
+            driver.find_element_by_xpath('//button[text()="Delete"]').click()
+        except :
+            raise Exception("Couldn't delete the form")
+        # except NoAlertPresentException:
+        #     pass
 
     def generic_preview_form(self):
         driver = self.driver
@@ -162,7 +168,6 @@ class EmptyTest(unittest.TestCase):
 
         #return to the iframe
         driver.switch_to_frame(driver.find_element_by_css_selector(enketo_iframe))
-
         self.fill_out_enketo_form("#validate-form")
 
         #return to default frame
