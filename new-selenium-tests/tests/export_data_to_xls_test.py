@@ -9,6 +9,7 @@ class ExportDataToXls(empty_test.EmptyTest):
 
     def export_data(self):
         self.log_prefix = "ExportDataToXls.deploy_form"
+        self.log_message("Reached, Export Data to XLS Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")

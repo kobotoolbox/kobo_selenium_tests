@@ -8,6 +8,7 @@ class LogoutTest(empty_test.EmptyTest):
     def test_logout(self):
 
         self.log_prefix = "LogoutTest.test_logout"
+        self.log_message("Reached, logout Test")
         driver = self.driver
         driver.get(self.base_url + "")
         accountBoxSelector = ".account-box"
@@ -15,7 +16,6 @@ class LogoutTest(empty_test.EmptyTest):
         #Check if user is logged in
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, accountBoxSelector, 1))
 
-        self.log_message("Click on "+accountBoxSelector)
         driver.find_element_by_css_selector(accountBoxSelector).click()
 
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, '.popover-menu'))

@@ -10,8 +10,10 @@ class NewFormFromScratchTest(empty_test.EmptyTest):
 
     def create_new_form_from_scratch(self):
         self.log_prefix = "NewFormFromScratchTest.test_start"
+        self.log_message("Reached, New Form from scratch Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
+        #go to enwe form page and click on the sidbar menu
         driver.get(self.base_url + "#/forms/new")
         self.assertTrue(self.is_element_present_with_wait(By.ID, "sidebar-menu", 30))
         el = driver.find_element_by_id("sidebar-menu")
@@ -34,8 +36,8 @@ class NewFormFromScratchTest(empty_test.EmptyTest):
         sector_el = driver.find_element_by_css_selector(sector_input)
         sector_el.send_keys("Public Administration")
         sector_el.send_keys(Keys.ENTER)
-        self.log_message("Sector filled")
 
+        #fill country input
         country_input = ".form-modal__item--country .Select-input input"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, country_input), 30)
         country_el = driver.find_element_by_css_selector(country_input)

@@ -9,6 +9,7 @@ class DeployImportedFormTest(empty_test.EmptyTest):
 
     def deploy_form(self):
         self.log_prefix = "DeployImportedFormTest.deploy_form"
+        self.log_message("Reached, Deploy Imported Form Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
@@ -39,7 +40,6 @@ class DeployImportedFormTest(empty_test.EmptyTest):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-view__status span"))
 
         deployed = driver.find_element_by_css_selector(".form-view__status span > span").text
-        self.log_message("DEPLOYED TEXT ======================" + deployed)
         if deployed != "Deployed":
             raise Exception("The imported form was not deployed")
 

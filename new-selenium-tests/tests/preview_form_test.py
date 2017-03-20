@@ -6,7 +6,7 @@ class PreviewFormTest(empty_test.EmptyTest):
 
     def preview_form(self):
         self.log_prefix = "PreviewFormTest.preview_form"
-        self.log_message("Reached")
+        self.log_message("Reached, Preview form Test")
 
         #This is an empty_test method!
         self.generic_preview_form()

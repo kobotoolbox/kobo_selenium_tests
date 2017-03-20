@@ -8,7 +8,8 @@ import time
 class EnketoFormSubmissionTest(empty_test.EmptyTest):
 
     def submit_from_enketo(self):
-        self.log_prefix = "DeployImportedFormTest.deploy_form"
+        self.log_prefix = "EnketoFormSubmissionTest.submit_from_enketo"
+        self.log_message("Reached, Enketo Form Submission Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
@@ -41,13 +42,6 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
         enketo_form_link = driver.find_element_by_css_selector(".open").get_attribute("href")
 
         driver.get(enketo_form_link)
-
-
-        ####################################
-        # OPENED ENKETO
-        ####################################
-        #switch to the newly opened window
-        print driver.window_handles
 
         time.sleep(2)
         #make sure form title exiists

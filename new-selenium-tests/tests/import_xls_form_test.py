@@ -10,6 +10,7 @@ class ImportXlsFormTest(empty_test.EmptyTest):
 
     def test_import_xls_form(self):
         self.log_prefix = "ImportXlsFormTest.test_import_xls_form"
+        self.log_message("Reached, Import Form from XLS Test")
         self.log_message("Reached")
         driver = self.driver
         driver.implicitly_wait(0)
@@ -20,7 +21,7 @@ class ImportXlsFormTest(empty_test.EmptyTest):
         sidebar = driver.find_element_by_id("sidebar-menu")
         sidebar.click()
         sleep(1)
-        
+
 
         #click on the upload button
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".dropzone input[type='file']"))

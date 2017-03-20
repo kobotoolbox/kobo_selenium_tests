@@ -10,6 +10,9 @@ class DeleteFormTest(empty_test.EmptyTest):
 
     def delete_form(self):
         self.log_prefix = "DeleteFormTest.delete_form"
+        self.log_message("Reached, Delete Form Test")
+        self.driver.get(self.base_url + "#/forms")
+        #called from emptyTest
         self.delete_form()
 
 if __name__ == "__main__":

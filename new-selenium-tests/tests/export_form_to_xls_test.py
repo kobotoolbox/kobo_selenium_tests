@@ -9,6 +9,7 @@ class ExportFormToXlsTest(empty_test.EmptyTest):
 
     def export_form_to_xls(self):
         self.log_prefix = "ExportFormToXlsTest.export_form_to_xls"
+        self.log_message("Reached, Export Form to XLS Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
@@ -32,6 +33,6 @@ class ExportFormToXlsTest(empty_test.EmptyTest):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, xls_link_selector))
         xls_link = self.driver.find_elements_by_css_selector(xls_link_selector)
         xls_link[0].click()
-        
+
 if __name__ == "__main__":
     unittest.main()

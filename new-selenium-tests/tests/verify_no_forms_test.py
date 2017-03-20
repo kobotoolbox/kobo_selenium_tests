@@ -7,16 +7,15 @@ import empty_test
 class VerifyNoFormsTest(empty_test.EmptyTest):
 
     def test_verify_no_forms(self):
-        self.driver.implicitly_wait(0)
-        self.log_prefix = "VerifyNoFormsTest.preview_form"
         driver = self.driver
+        driver.implicitly_wait(0)
+        self.log_prefix = "VerifyNoFormsTest.test_verify_no_forms"
+        self.log_message("Reached, Verify that no forms exist Test")
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
-
-        #click on the form link
-        form_link = ".asset-row__celllink"
-        self.assertFalse(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link, 20))
-
+        form_submissions = driver.find_elements_by_css_selector('.asset-row__celllink')
+        if len(form_submissions):
+            raise Exception("Verify no forms exists has failed because one or more forms still exist")
 
 if __name__ == "__main__":
     unittest.main()

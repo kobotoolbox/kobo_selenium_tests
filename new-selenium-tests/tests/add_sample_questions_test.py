@@ -10,6 +10,7 @@ class AddSampleQuestionsTest(empty_test.EmptyTest):
 
     def add_questions_test(self):
         self.log_prefix = "AddSampleQuestionsTest.add_questions_test"
+        self.log_message("Reached, Add Sample Questions Test")
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
 

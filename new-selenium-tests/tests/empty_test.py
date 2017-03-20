@@ -8,6 +8,7 @@ import unittest
 import os
 import glob
 from time import sleep
+from optparse import OptionParser
 
 class EmptyTest(unittest.TestCase):
     def setUp(self):
@@ -16,28 +17,37 @@ class EmptyTest(unittest.TestCase):
         self.driver.implicitly_wait(0)
         self.driver.maximize_window()
 
-        #set up default variables.
-        # self.base_url = 'http://172.17.0.1:8000/'
-        # self.username = 'admin'
-        # self.password = 'admin'
-        self.base_url = 'http://kf.kobotoolbox.org/'
-        self.username = 'selenium_test'
-        self.password = 'selenium_test'
+        #local env
+        self.base_url = 'http://172.17.0.1:8000/'
+        self.username = 'admin'
+        self.password = 'admin'
+
+        #test env
+        # self.base_url = 'http://kf.kobotoolbox.org/'
+        # self.username = 'selenium_test'
+        # self.password = 'selenium_test'
+
+        #production env
+        # self.base_url = 'http://kf.kobotoolbox.org/'
+        # self.username = 'selenium_test'
+        # self.password = 'selenium_test'
+
         self.verificationErrors = []
         self.accept_next_alert = True
         self.log_prefix = "Empty"
         self.mouse = webdriver.ActionChains(self.driver)
 
-
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException, e: return False
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException, e:
+            return False
         return True
 
     def is_element_present_with_wait(self, how, what, how_long=60):
-        message = "Looking by: " +how+ " for: " + what
+        # message = "Looking for: " +how+ " for: " + what
         for i in range(how_long):
-            print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
+            # print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
             if self.is_element_present(how, what):
                 break
             sleep(1)
@@ -46,7 +56,8 @@ class EmptyTest(unittest.TestCase):
 
     def is_alert_present(self):
         try: self.driver.switch_to_alert()
-        except NoAlertPresentException, e: return False
+        except NoAlertPresentException, e:
+            return False
         return True
 
     def close_alert_and_get_its_text(self):
@@ -90,7 +101,6 @@ class EmptyTest(unittest.TestCase):
     def delete_form(self):
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
-        driver.get(self.base_url + "#/forms")
 
         #Hover over the assets action buttons
         form_link = ".asset-row__buttons"
@@ -113,20 +123,19 @@ class EmptyTest(unittest.TestCase):
         delete_form_btn[0].click()
 
         sleep(2)
+
         #make sure the confirmation pop-up appears
-        self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".ajs-dialog"))
+        # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".ajs-dialog"))
 
         try:
             dialog = driver.find_element_by_css_selector(".ajs-dialog")
             delete_confirmation_checkboxes = dialog.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
-
-            #check all the dialog's checkboxes
-            for checkbox in delete_confirmation_checkboxes:
-                if not checkbox.get_attribute('checked'):
-                    checkbox.click()
-
-            delete_button_el = dialog.find_element_by_xpath('//button[text()="Delete"]')
-            delete_button_el.click()
+            if len(delete_confirmation_checkboxes) > 0: #if this is a deployed form otherwise skip this step
+                #check all the dialog's checkboxes
+                for checkbox in delete_confirmation_checkboxes:
+                    if not checkbox.get_attribute('checked'):
+                        checkbox.click()
+            dialog.find_element_by_xpath('//button[text()="Delete"]').click()
         except NoAlertPresentException:
             pass
 
@@ -186,9 +195,10 @@ class EmptyTest(unittest.TestCase):
         self.driver.find_element_by_css_selector(validate_btn).click()
 
         #Make sure the validation of the form submission is successful
-        success_dialog = ".vex-dialog-message.success"
-        self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, success_dialog))
+        self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message")
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, '.vex-dialog-message.success'))
 
+    @classmethod
     def does_file_exist_with_wildcard(self, filepath):
         for filepath_object in glob.glob(filepath):
             if os.path.isfile(filepath_object):

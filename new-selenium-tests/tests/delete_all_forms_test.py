@@ -9,10 +9,11 @@ from selenium.common.exceptions import NoAlertPresentException
 class DeleteAllFormsTest(empty_test.EmptyTest):
 
     def delete_all_forms(self):
-        self.log_prefix = "DeleteAllFormsTest.delete_all_forms"
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
+        self.log_prefix = "DeleteAllFormsTest.delete_all_forms"
+        self.log_message("Reached, Delete All Forms Test")
 
         #Hover over the assets action buttons
         form_link = ".asset-row__buttons"
