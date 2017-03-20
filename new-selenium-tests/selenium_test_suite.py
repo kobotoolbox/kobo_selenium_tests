@@ -28,6 +28,7 @@ class Test_Selenium(empty_test.EmptyTest):
 
     # Get settings overrides from the environment.
     KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'http://172.17.0.1:8000/')
+    # KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'http://kf.kobotoolbox.org/')
     if KOBOFORM_URL[-1] != '/':
         KOBOFORM_URL+= '/'
     KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://172.17.0.1:8000/')
@@ -95,7 +96,7 @@ class Test_Selenium(empty_test.EmptyTest):
 
         if os.path.isfile('/tmp/'+ file_name):
             os.remove('/tmp/'+ file_name)
-            
+
         cls.driver.quit()
 
     def test_step_01_initial_login(self):

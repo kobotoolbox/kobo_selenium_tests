@@ -17,9 +17,12 @@ class EmptyTest(unittest.TestCase):
         self.driver.maximize_window()
 
         #set up default variables.
-        self.base_url = 'http://172.17.0.1:8000/'
-        self.username = 'admin'
-        self.password = 'admin'
+        # self.base_url = 'http://172.17.0.1:8000/'
+        # self.username = 'admin'
+        # self.password = 'admin'
+        self.base_url = 'http://kf.kobotoolbox.org/'
+        self.username = 'selenium_test'
+        self.password = 'selenium_test'
         self.verificationErrors = []
         self.accept_next_alert = True
         self.log_prefix = "Empty"
