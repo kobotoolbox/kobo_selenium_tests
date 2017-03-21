@@ -73,7 +73,7 @@ class Test_Selenium(empty_test.EmptyTest):
         chromeOptions.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
         #, "download.prompt_for_download": False
         cls.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        cls.driver.implicitly_wait(30)
+        cls.driver.implicitly_wait(0)
         cls.driver.maximize_window()
         cls.verificationErrors = []
         cls.accept_next_alert = True
@@ -110,41 +110,41 @@ class Test_Selenium(empty_test.EmptyTest):
         test_method_name= test_case_class.test_login.__name__
         test_case_class.__dict__[test_method_name](self)
 
-    # def test_step_02_create_new_form_from_scratch(self):
-    #     # KoBoForm test.
-    #     self.base_url= self.KOBOFORM_URL
-    #
-    #     # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
-    #     test_case_class= new_form_from_scratch_test.NewFormFromScratchTest
-    #     test_method_name= test_case_class.create_new_form_from_scratch.__name__
-    #     test_case_class.__dict__[test_method_name](self)
-    #
-    # def test_step_03_add_sample_questions(self):
-    #     # KoBoForm test.
-    #     self.base_url= self.KOBOFORM_URL
-    #
-    #     # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
-    #     test_case_class= add_sample_questions_test.AddSampleQuestionsTest
-    #     test_method_name= test_case_class.add_questions_test.__name__
-    #     test_case_class.__dict__[test_method_name](self)
-    #
-    # def test_step_04_preview_form(self):
-    #     # KoBoForm test.
-    #     self.base_url= self.KOBOFORM_URL
-    #
-    #     # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
-    #     test_case_class= preview_form_test.PreviewFormTest
-    #     test_method_name= test_case_class.preview_form.__name__
-    #     test_case_class.__dict__[test_method_name](self)
-    #
-    # def test_step_05_export_form_to_xls(self):
-    #     # KoBoForm test.
-    #     self.base_url = self.KOBOFORM_URL
-    #
-    #     # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
-    #     test_case_class= export_form_to_xls_test.ExportFormToXlsTest
-    #     test_method_name= test_case_class.export_form_to_xls.__name__
-    #     test_case_class.__dict__[test_method_name](self)
+    def test_step_02_create_new_form_from_scratch(self):
+        # KoBoForm test.
+        self.base_url= self.KOBOFORM_URL
+
+        # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
+        test_case_class= new_form_from_scratch_test.NewFormFromScratchTest
+        test_method_name= test_case_class.create_new_form_from_scratch.__name__
+        test_case_class.__dict__[test_method_name](self)
+
+    def test_step_03_add_sample_questions(self):
+        # KoBoForm test.
+        self.base_url= self.KOBOFORM_URL
+
+        # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
+        test_case_class= add_sample_questions_test.AddSampleQuestionsTest
+        test_method_name= test_case_class.add_questions_test.__name__
+        test_case_class.__dict__[test_method_name](self)
+
+    def test_step_04_preview_form(self):
+        # KoBoForm test.
+        self.base_url= self.KOBOFORM_URL
+
+        # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
+        test_case_class= preview_form_test.PreviewFormTest
+        test_method_name= test_case_class.preview_form.__name__
+        test_case_class.__dict__[test_method_name](self)
+
+    def test_step_05_export_form_to_xls(self):
+        # KoBoForm test.
+        self.base_url = self.KOBOFORM_URL
+
+        # Do a duck typing magic trick so this 'TestCase' descendant can use a test method of a sibling descendant.
+        test_case_class= export_form_to_xls_test.ExportFormToXlsTest
+        test_method_name= test_case_class.export_form_to_xls.__name__
+        test_case_class.__dict__[test_method_name](self)
 
     def test_step_06_delete_all_forms(self):
         # KoBoForm test.

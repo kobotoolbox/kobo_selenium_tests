@@ -10,6 +10,7 @@ class DeleteAllFormsTest(empty_test.EmptyTest):
 
     def delete_all_forms(self):
         driver = self.driver
+        driver.implicitly_wait(0)
         self.mouse = webdriver.ActionChains(self.driver)
         driver.get(self.base_url + "#/forms")
         self.log_prefix = "DeleteAllFormsTest.delete_all_forms"
@@ -22,6 +23,7 @@ class DeleteAllFormsTest(empty_test.EmptyTest):
 
         for form in form_link_list:
             self.delete_form()
+            time.sleep(2)
 
 if __name__ == "__main__":
     unittest.main()

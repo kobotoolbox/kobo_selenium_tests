@@ -45,9 +45,9 @@ class EmptyTest(unittest.TestCase):
         return True
 
     def is_element_present_with_wait(self, how, what, how_long=60):
-        message = "Looking for: " +how+ " for: " + what
+        # message = "Looking for: " +how+ " for: " + what
         for i in range(how_long):
-            print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
+            # print message +  " [time: "+`i + 1`+" of "+`how_long + 1`+"]"
             if self.is_element_present(how, what):
                 break
             sleep(1)
@@ -125,11 +125,9 @@ class EmptyTest(unittest.TestCase):
         sleep(2)
 
         #make sure the confirmation pop-up appears
-        self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".ajs-dialog"))
+        delete_btn = '//button[text()="Delete"]'
+        self.assertTrue(self.is_element_present_with_wait(By.XPATH, delete_btn))
 
-
-        # try:
-        # dialog = driver.find_element_by_css_selector(".ajs-dialog")
         try:
             delete_confirmation_checkboxes = driver.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
             print len(delete_confirmation_checkboxes)
@@ -138,8 +136,7 @@ class EmptyTest(unittest.TestCase):
                 for checkbox in delete_confirmation_checkboxes:
                     if not checkbox.get_attribute('checked'):
                         checkbox.click()
-            driver.execute_script("document.querySelectorAll('.ajs-dialog .ajs-ok')[0].click()")
-            driver.find_element_by_xpath('//button[text()="Delete"]').click()
+            driver.find_element_by_xpath(delete_btn).send_keys(Keys.ENTER)
         except :
             raise Exception("Couldn't delete the form")
         # except NoAlertPresentException:
