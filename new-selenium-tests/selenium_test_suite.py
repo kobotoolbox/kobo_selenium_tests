@@ -74,7 +74,7 @@ class Test_Selenium(empty_test.EmptyTest):
         selenium_logger.setLevel(logging.WARN)
 
         #Initialize a ghost Browser window set visible to 1 if you want to view the test as it runs
-        cls.display = Display(visible=1, size=(1500, 1200))
+        cls.display = Display(visible=0, size=(1500, 1200))
         cls.display.start()
 
         #Chrome set up
