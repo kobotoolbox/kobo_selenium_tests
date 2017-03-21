@@ -8,7 +8,6 @@ import unittest
 import os
 import glob
 from time import sleep
-from optparse import OptionParser
 
 class EmptyTest(unittest.TestCase):
     def setUp(self):
@@ -129,7 +128,6 @@ class EmptyTest(unittest.TestCase):
 
         try:
             delete_confirmation_checkboxes = driver.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
-            print len(delete_confirmation_checkboxes)
             if len(delete_confirmation_checkboxes) > 0: #if this is a deployed form otherwise skip this step
                 #check all the dialog's checkboxes
                 for checkbox in delete_confirmation_checkboxes:
