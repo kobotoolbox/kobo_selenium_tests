@@ -11,7 +11,6 @@ class ImportXlsFormTest(empty_test.EmptyTest):
     def test_import_xls_form(self):
         self.log_prefix = "ImportXlsFormTest.test_import_xls_form"
         self.log_message("Reached, Import Form from XLS Test")
-        self.log_message("Reached")
         driver = self.driver
         driver.implicitly_wait(0)
         self.mouse = webdriver.ActionChains(self.driver)
@@ -20,12 +19,11 @@ class ImportXlsFormTest(empty_test.EmptyTest):
         self.assertTrue(self.is_element_present_with_wait(By.ID, "sidebar-menu"))
         sidebar = driver.find_element_by_id("sidebar-menu")
         sidebar.click()
-        sleep(1)
-
+        sleep(2)
 
         #click on the upload button
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".dropzone input[type='file']"))
-        xls_file = os.getcwd()+"/My Awesome Kobo Form.xls"
+        xls_file = os.getcwd()+"/My_Awesome_Kobo_Form.xls"
         driver.find_element_by_css_selector(".dropzone input[type='file']").send_keys(xls_file)
 
         #Make sure the form was uploaded

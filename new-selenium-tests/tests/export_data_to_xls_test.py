@@ -45,7 +45,7 @@ class ExportDataToXls(empty_test.EmptyTest):
         time.sleep(5)
 
         # Make sure the file was downloaded?
-        if not self.does_file_exist_with_wildcard("/tmp/My Awesome Kobo Form - *.xls*"):
+        if not self.does_file_exist_with_wildcard("/tmp/My_Awesome_Kobo_Form - *.xls*"):
             raise Exception("File was not downloaded")
 
 if __name__ == "__main__":

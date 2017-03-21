@@ -6,6 +6,7 @@ import empty_test
 class LoginTest(empty_test.EmptyTest):
 
     def test_login(self):
+        
         self.log_prefix ="LoginTest.test_login"
         self.log_message("Reached, Login Test")
         driver = self.driver

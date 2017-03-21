@@ -68,7 +68,7 @@ class Test_Selenium(empty_test.EmptyTest):
         # Only display possible problems
         selenium_logger.setLevel(logging.WARN)
 
-        #Initialize a ghost Browser window
+        #Initialize a ghost Browser window set visible to 1 if you want to view the test as it runs
         cls.display = Display(visible=0, size=(1500, 1200))
         cls.display.start()
 
@@ -77,26 +77,24 @@ class Test_Selenium(empty_test.EmptyTest):
         chromeOptions.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
         cls.driver = webdriver.Chrome(chrome_options=chromeOptions)
         cls.driver.implicitly_wait(0)
+        cls.driver.set_window_size(1500, 1200)
         cls.driver.maximize_window()
-
-        #PhantomJS
-        # cap = webdriver.DesiredCapabilities.PHANTOMJS
-        # cap["phantomjs.page.settings.resourceTimeout"] = 1000
-        # cap["phantomjs.page.settings.loadImages"] = False
-        # cap["phantomjs.page.settings.userAgent"] = "faking it"
-        # cls.driver = webdriver.PhantomJS(desired_capabilities=cap)
-        # cls.driver.set_window_size(1500, 1200)
 
         cls.driver.implicitly_wait(0)
         cls.verificationErrors = []
         cls.accept_next_alert = True
         cls.suite_start_time= time.time()
-        cls.tmp_file_before = os.listdir("/tmp")
+        cls.tmp_file_before = cls.find_xls_filenames("/tmp")
+
+    @classmethod
+    def find_xls_filenames(self, path_to_dir, suffix=".xls" ):
+        filenames = os.listdir(path_to_dir)
+        return [ filename for filename in filenames if filename.endswith( suffix ) ]
 
     @classmethod
     def tearDownClass(cls):
         # Clean up the downloaded XLS file if the test got that far.
-        after  = os.listdir("/tmp")
+        after  = cls.find_xls_filenames("/tmp")
         change = set(after) - set(cls.tmp_file_before)
         file_name ="no file exists"
         if len(change) == 1:
