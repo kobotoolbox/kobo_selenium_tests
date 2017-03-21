@@ -2,7 +2,7 @@ import unittest
 import os
 import time
 import logging
-
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from tests import empty_test
 from tests import login_test
@@ -68,17 +68,29 @@ class Test_Selenium(empty_test.EmptyTest):
         # Only display possible problems
         selenium_logger.setLevel(logging.WARN)
 
+        #Initialize a ghost Browser window
+        cls.display = Display(visible=0, size=(1500, 1200))
+        cls.display.start()
 
+        #Chrome set up
         chromeOptions = webdriver.ChromeOptions()
         chromeOptions.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
-        #, "download.prompt_for_download": False
         cls.driver = webdriver.Chrome(chrome_options=chromeOptions)
         cls.driver.implicitly_wait(0)
         cls.driver.maximize_window()
+
+        #PhantomJS
+        # cap = webdriver.DesiredCapabilities.PHANTOMJS
+        # cap["phantomjs.page.settings.resourceTimeout"] = 1000
+        # cap["phantomjs.page.settings.loadImages"] = False
+        # cap["phantomjs.page.settings.userAgent"] = "faking it"
+        # cls.driver = webdriver.PhantomJS(desired_capabilities=cap)
+        # cls.driver.set_window_size(1500, 1200)
+
+        cls.driver.implicitly_wait(0)
         cls.verificationErrors = []
         cls.accept_next_alert = True
         cls.suite_start_time= time.time()
-
         cls.tmp_file_before = os.listdir("/tmp")
 
     @classmethod
@@ -98,6 +110,9 @@ class Test_Selenium(empty_test.EmptyTest):
             os.remove('/tmp/'+ file_name)
 
         cls.driver.quit()
+
+        #quit the ghost window
+        cls.display.stop()
 
     def test_step_01_initial_login(self):
         # KoBoForm test.

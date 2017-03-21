@@ -13,7 +13,7 @@ from optparse import OptionParser
 class EmptyTest(unittest.TestCase):
     def setUp(self):
         #create a new browser session
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(0)
         self.driver.maximize_window()
 
@@ -113,7 +113,6 @@ class EmptyTest(unittest.TestCase):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
         more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
         more_actions_el[0].click()
-        print "Yo"
         sleep(2)
 
         #click on the Delete button
