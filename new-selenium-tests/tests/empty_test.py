@@ -23,17 +23,6 @@ class EmptyTest(unittest.TestCase):
         self.base_url = ''
         self.username = ''
         self.password = ''
-
-        #test env
-        # self.base_url = 'http://kf.kobotoolbox.org/'
-        # self.username = 'selenium_test'
-        # self.password = 'selenium_test'
-
-        #production env
-        # self.base_url = 'http://kf.kobotoolbox.org/'
-        # self.username = 'selenium_test'
-        # self.password = 'selenium_test'
-
         self.verificationErrors = []
         self.accept_next_alert = True
         self.log_prefix = "Empty"
@@ -204,7 +193,7 @@ class EmptyTest(unittest.TestCase):
     @classmethod
     def handle_test_exceptions(self, e):
         print "FAILED: " + sys._getframe().f_back.f_code.co_name
-        print "An Exception of type "+ str(type(e)) +" happened while trying to create a NEW FORM FROM SCRATCH more info: "
+        print "An Exception of type "+ str(type(e)) +" happened while trying to create a "+sys._getframe().f_back.f_code.co_name+" more info: "
         print "Arguments: " + str(e.args)
         print "Message: " + e.message
         traceback.print_exc()

@@ -44,7 +44,7 @@ class Test_Selenium(empty_test.EmptyTest):
     BROWSER_WIDTH = 1500
     BROWSER_HEIGHT = 900
     BROWSER_IMPLICIT_WAIT = 0
-    BROWSER_VISIBLE=0 #0 or 1 value
+    BROWSER_VISIBLE=1 #0 or 1 value
     #chrome options:
     BROWSER_CHROME_OPTIONS = webdriver.ChromeOptions()
     BROWSER_CHROME_OPTIONS.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
