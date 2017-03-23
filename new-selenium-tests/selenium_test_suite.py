@@ -44,7 +44,7 @@ class Test_Selenium(empty_test.EmptyTest):
     BROWSER_WIDTH = 1500
     BROWSER_HEIGHT = 900
     BROWSER_IMPLICIT_WAIT = 0
-    BROWSER_VISIBLE=1 #0 or 1 value
+    BROWSER_VISIBLE=0 #0 or 1 value
     #chrome options:
     BROWSER_CHROME_OPTIONS = webdriver.ChromeOptions()
     BROWSER_CHROME_OPTIONS.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
@@ -79,7 +79,6 @@ class Test_Selenium(empty_test.EmptyTest):
         cls.display.start()
 
         #Chrome set up
-
         cls.driver = webdriver.Chrome(chrome_options=cls.BROWSER_CHROME_OPTIONS)
         cls.driver.set_window_size(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT)
         cls.driver.implicitly_wait(cls.BROWSER_IMPLICIT_WAIT)
@@ -100,18 +99,16 @@ class Test_Selenium(empty_test.EmptyTest):
         change = set(after) - set(cls.tmp_file_before)
         file_name ="no file exists"
         if len(change) == 1:
-            file_name = change.pop()
-        else:
-            print "More than one file or no file downloaded"
+            file_name = change.pop
 
-        print "file_name to be deleted: " + file_name
+        # print "file_name to be deleted: " + file_name
+        file_path = '/tmp/'+ file_name
+        if os.path.isfile(file_path):
+            os.remove(file_path)
 
-        if os.path.isfile('/tmp/'+ file_name):
-            os.remove('/tmp/'+ file_name)
-
+        #quit browser instance
         cls.driver.quit()
-
-        #quit the ghost window
+        #quit the window
         cls.display.stop()
 
     ALL_TESTS = {
@@ -194,8 +191,7 @@ class Test_Selenium(empty_test.EmptyTest):
                     print "Reached: " + current_test.get('test_method')
                     test_case_class= current_test.get('test_class')
                     test_case_class.__dict__[current_test.get('test_method')](self)
-            else:
-                print "AN ERROR HAS OCCURED!!!"
+
                 # raise
 
 if __name__ == "__main__":

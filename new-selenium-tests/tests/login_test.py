@@ -9,7 +9,9 @@ class LoginTest(empty_test.EmptyTest):
     def test_login(self):
         try:
             driver = self.driver
-            driver.get(self.base_url + "accounts/login/?next=/")
+            login_url = self.base_url + "accounts/login/?next=/"
+            driver.get(login_url)
+            print "HIT: " + login_url
 
             #Make sure the you are on the login page
             self.assertTrue(self.is_element_present_with_wait(By.ID, "id_username"))
