@@ -9,11 +9,14 @@ from selenium.common.exceptions import NoAlertPresentException
 class DeleteFormTest(empty_test.EmptyTest):
 
     def delete_form(self):
-        self.log_prefix = "DeleteFormTest.delete_form"
-        self.log_message("Reached, Delete Form Test")
-        self.driver.get(self.base_url + "#/forms")
-        #called from emptyTest
-        self.delete_form()
+        try:
+            self.driver.get(self.base_url + "#/forms")
+            #called from emptyTest
+            self.delete_form()
+            self.status("PASSED")
+            
+        except Exception as e:
+            self.handle_test_exceptions(e)
 
 if __name__ == "__main__":
     unittest.main()

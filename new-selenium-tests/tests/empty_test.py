@@ -9,18 +9,20 @@ import os
 import glob
 from time import sleep
 import sys
+import inspect
+import traceback
 
 class EmptyTest(unittest.TestCase):
     def setUp(self):
         #create a new browser session
-        self.driver = webdriver.PhantomJS()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(0)
         self.driver.maximize_window()
 
         #local env
-        self.base_url = 'http://172.17.0.1:8000/'
-        self.username = 'admin'
-        self.password = 'admin'
+        self.base_url = ''
+        self.username = ''
+        self.password = ''
 
         #test env
         # self.base_url = 'http://kf.kobotoolbox.org/'
@@ -70,9 +72,6 @@ class EmptyTest(unittest.TestCase):
                 alert.dismiss()
             return alert_text
         finally: self.accept_next_alert = True
-
-    def log_message(self, message):
-        print self.log_prefix +" => "+ message
 
     def add_new_question(self, question_name, question_type, waiting_time=1):
         driver = self.driver
@@ -197,6 +196,19 @@ class EmptyTest(unittest.TestCase):
         #Make sure the validation of the form submission is successful
         self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message")
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR, '.vex-dialog-message.success'))
+
+    @classmethod
+    def status(self, status):
+       print status + ": " + sys._getframe().f_back.f_code.co_name
+
+    @classmethod
+    def handle_test_exceptions(self, e):
+        print "FAILED: " + sys._getframe().f_back.f_code.co_name
+        print "An Exception of type "+ str(type(e)) +" happened while trying to create a NEW FORM FROM SCRATCH more info: "
+        print "Arguments: " + str(e.args)
+        print "Message: " + e.message
+        traceback.print_exc()
+        raise e
 
     @classmethod
     def does_file_exist_with_wildcard(self, filepath):

@@ -5,11 +5,14 @@ import empty_test
 class PreviewFormTest(empty_test.EmptyTest):
 
     def preview_form(self):
-        self.log_prefix = "PreviewFormTest.preview_form"
-        self.log_message("Reached, Preview form Test")
+        try:
+            #This is an empty_test method!
+            self.generic_preview_form()
 
-        #This is an empty_test method!
-        self.generic_preview_form()
+            self.status("PASSED")
+
+        except Exception as e:
+            self.handle_test_exceptions(e)
 
 if __name__ == "__main__":
     unittest.main()
