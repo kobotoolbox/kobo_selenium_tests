@@ -30,7 +30,7 @@ class Test_Selenium(empty_test.EmptyTest):
     KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'https://kf.kobotoolbox.org/')
     if KOBOFORM_URL[-1] != '/':
         KOBOFORM_URL+= '/'
-    KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://172.17.0.1:8000/')
+    KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'http://172.17.0.1:8001/')
     if KOBOCAT_URL[-1] != '/':
         KOBOCAT_URL+= '/'
     KOBO_USERNAME= os.environ.get('KOBO_USERNAME', 'selenium_test')
@@ -44,7 +44,8 @@ class Test_Selenium(empty_test.EmptyTest):
     BROWSER_WIDTH = 1500
     BROWSER_HEIGHT = 900
     BROWSER_IMPLICIT_WAIT = 0
-    BROWSER_VISIBLE=1 #0 or 1 value
+    BROWSER_VISIBLE= os.environ.get('SELENIUM_BROWSER_VISIBLITY', 1)
+
     #chrome options:
     BROWSER_CHROME_OPTIONS = webdriver.ChromeOptions()
     BROWSER_CHROME_OPTIONS.add_experimental_option("prefs", {"download.default_directory" : "/tmp", "download.prompt_for_download": False})
@@ -116,25 +117,25 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': login_test.LoginTest,
             'test_method' : 'test_login'
         },
-        'test_02_new_form': {
+        'test_02_delete_all_forms': {
+            'test_class': delete_all_forms_test.DeleteAllFormsTest,
+            'test_method': 'delete_all_forms'
+        },
+        'test_03_new_form': {
             'test_class': new_form_from_scratch_test.NewFormFromScratchTest,
             'test_method' : 'create_new_form_from_scratch'
         },
-        'test_03_add_sample_question': {
+        'test_04_add_sample_question': {
             'test_class': add_sample_questions_test.AddSampleQuestionsTest,
             'test_method': 'add_questions_test'
         },
-        'test_04_preview_form': {
+        'test_05_preview_form': {
             'test_class': preview_form_test.PreviewFormTest,
             'test_method': 'preview_form'
         },
-        'test_05_export_form_to_xls': {
+        'test_06_export_form_to_xls': {
             'test_class': export_form_to_xls_test.ExportFormToXlsTest,
             'test_method': 'export_form_to_xls'
-        },
-        'test_06_delete_all_forms': {
-            'test_class': delete_all_forms_test.DeleteAllFormsTest,
-            'test_method': 'delete_all_forms'
         },
         'test_07_import_xls_form': {
             'test_class': import_xls_form_test.ImportXlsFormTest,

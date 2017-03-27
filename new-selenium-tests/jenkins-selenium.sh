@@ -1,0 +1,12 @@
+#!/bin/bash
+#Environment variables:
+KOBO_USERNAME="<USERNAME URL GOES HERE>" && export KOBO_USERNAME
+KOBO_PASSWORD="<PASSWORD GOES HERE>" && export KOBO_PASSWORD
+KOBOFORM_URL="<KOBO FORM URL GOES HERE>" && export KOBOFORM_URL
+SELENIUM_BROWSER_VISIBLITY = 0 && export SELENIUM_BROWSER_VISIBLITY
+KOBO_SELENIUM_TESTS="<TESTS LOCATION GOES HERE>"
+SELENIUM_BROWSER_VISIBLITY=0 #keep this as 0 when running on Jenkins
+
+cd KOBO_SELENIUM_TESTS
+pip install -r requirements.txt
+python selenium_test_suite.py
