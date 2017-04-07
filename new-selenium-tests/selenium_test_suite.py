@@ -4,7 +4,6 @@ import sys
 import config
 import time
 import logging
-from pyvirtualdisplay import Display
 from selenium import webdriver
 from tests import empty_test
 from tests import login_test
@@ -31,6 +30,7 @@ class Test_Selenium(empty_test.EmptyTest):
     KOBOFORM_URL= os.environ.get('KOBOFORM_URL', 'https://kf.kobotoolbox.org/')
     if KOBOFORM_URL[-1] != '/':
         KOBOFORM_URL+= '/'
+    # TODO: Remove? Unused?
     KOBOCAT_URL= os.environ.get('KOBOCAT_URL', 'https://kc.kobotoolbox.org')
     if KOBOCAT_URL[-1] != '/':
         KOBOCAT_URL+= '/'
@@ -82,12 +82,19 @@ class Test_Selenium(empty_test.EmptyTest):
         # Only display possible problems
         selenium_logger.setLevel(logging.WARN)
 
-        #Initialize a ghost Browser window set visible to 1 if you want to view the test as it runs
-        cls.display = Display(visible=cls.BROWSER_VISIBLE, size=(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT))
-        cls.display.start()
+        if os.environ.get('SELENIUM_REMOTE_WEBDRIVER_ROOT'):
+            # Use a remote Selenium Webdriver instance.
+            remote_webdriver_root = os.environ['SELENIUM_REMOTE_WEBDRIVER_ROOT'].rstrip('/')
+            cls.driver = webdriver.Remote(remote_webdriver_root + '/wd/hub',
+                desired_capabilities=cls.BROWSER_CHROME_OPTIONS.to_capabilities())
+        else:
+            #Initialize a ghost Browser window set visible to 1 if you want to view the test as it runs
+            from pyvirtualdisplay import Display
+            cls.display = Display(visible=cls.BROWSER_VISIBLE, size=(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT))
+            cls.display.start()
+            #Chrome set up
+            cls.driver = webdriver.Chrome(chrome_options=cls.BROWSER_CHROME_OPTIONS)
 
-        #Chrome set up
-        cls.driver = webdriver.Chrome(chrome_options=cls.BROWSER_CHROME_OPTIONS)
         cls.driver.set_window_size(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT)
         cls.driver.implicitly_wait(cls.BROWSER_IMPLICIT_WAIT)
         cls.verificationErrors = []
@@ -117,7 +124,8 @@ class Test_Selenium(empty_test.EmptyTest):
         #quit browser instance
         cls.driver.quit()
         #quit the window
-        cls.display.stop()
+        if isinstance(cls.driver, webdriver.Chrome):
+            cls.display.stop()
 
     ALL_TESTS = {
         'test_01_login' : {
@@ -189,10 +197,10 @@ class Test_Selenium(empty_test.EmptyTest):
                 test_case_class= current_test.get('test_class')
                 test_case_class.__dict__[current_test.get('test_method')](self)
         except :
+            # TODO: Move second attempt out of the class and into `__main__`.
             #Initialize a new browser for a fresh test
-            self.driver = webdriver.Chrome(chrome_options=self.BROWSER_CHROME_OPTIONS)
-            self.driver.implicitly_wait(self.BROWSER_IMPLICIT_WAIT)
-            self.driver.set_window_size(self.BROWSER_WIDTH, self.BROWSER_HEIGHT)
+            self.tearDownClass()
+            self.setUpClass()
             print "<============ 2nd SELENIUM TEST TRY ============>"
             if first_try == True:
                 for key, current_test in sorted(self.ALL_TESTS.iteritems()) :

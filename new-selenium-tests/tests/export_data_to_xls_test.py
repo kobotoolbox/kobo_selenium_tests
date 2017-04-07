@@ -45,7 +45,14 @@ class ExportDataToXls(empty_test.EmptyTest):
             time.sleep(5)
 
             # Make sure the file was downloaded?
-            if not self.does_file_exist_with_wildcard("/tmp/My_Awesome_Kobo_Form - *.xls*"):
+            if isinstance(self.driver, webdriver.Remote):
+                # When using a remote `webdriver`, we don't have direct access to downloaded files.
+                driver.get('file:///tmp/')
+                # TODO: Fix this kludge with a pure Xpath solution?
+                local_file_link = driver.find_element_by_partial_link_text('My_Awesome_Kobo_Form')
+                file_size =  local_file_link.find_element_by_xpath('../../td[2]').text
+                self.status('Downloaded {} file `{}`.'.format(file_size, local_file_link.text))
+            elif not self.does_file_exist_with_wildcard("/tmp/My_Awesome_Kobo_Form.xls"):
                 raise Exception("File was not downloaded")
 
             self.status("PASSED")
