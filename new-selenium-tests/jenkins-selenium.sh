@@ -9,7 +9,7 @@ echo "Absolute directory path of this script is \`${SCRIPT_DIR}/\`."
 
 if [[ "${DOCKER_SELENIUM_SERVER,,}" == 'true' ]]; then
     echo 'Starting Dockerized Selenium "standalone server".'
-    selenium_container_id="$(docker run --rm --detach --publish-all selenium/standalone-chrome)"
+    selenium_container_id="$(docker run --rm --detach --publish-all --shm-size=1g selenium/standalone-chrome)"
 
     trap "echo 'Removing Selenium server container.'; docker rm --force --volumes ${selenium_container_id}" EXIT
     echo 'Automatic Selenium server container cleanup configured.'
@@ -23,8 +23,7 @@ if [[ "${DOCKER_SELENIUM_SERVER,,}" == 'true' ]]; then
     pip install --requirement requirements.txt
 
     until grep --quiet 'Selenium Server is up and running' <<< "$(docker logs ${selenium_container_id})"; do
-        echo 'sleepy'
-        sleep 0.5
+        sleep 1
     done
     echo 'Selenium server ready.'
 

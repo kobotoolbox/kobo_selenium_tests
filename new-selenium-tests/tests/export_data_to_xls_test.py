@@ -47,6 +47,7 @@ class ExportDataToXls(empty_test.EmptyTest):
             # Make sure the file was downloaded?
             if isinstance(self.driver, webdriver.Remote):
                 # When using a remote `webdriver`, we don't have direct access to downloaded files.
+                #   Instead, inspect the remote Selenium server's filesystem with its browser.
                 driver.get('file:///tmp/')
                 # TODO: Fix this kludge with a pure Xpath solution?
                 local_file_link = driver.find_element_by_partial_link_text('My_Awesome_Kobo_Form')
