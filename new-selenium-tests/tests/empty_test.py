@@ -184,6 +184,7 @@ class EmptyTest(unittest.TestCase):
 
         #Make sure the validation of the form submission is successful
         self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message")
+        self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message.success")
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR, '.vex-dialog-message.success'))
 
     @classmethod
