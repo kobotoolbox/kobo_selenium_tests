@@ -97,7 +97,7 @@ class EmptyTest(unittest.TestCase):
         self.mouse.move_to_element(form_link_el[0]).move_by_offset(0,1).perform()
 
         #click on the More Actions button
-        more_actions_button = "button[data-tip='More Actions']"
+        more_actions_button = ".popover-menu--assetrow-menu"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
         more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
         more_actions_el[0].click()
@@ -116,12 +116,13 @@ class EmptyTest(unittest.TestCase):
         self.assertTrue(self.is_element_present_with_wait(By.XPATH, delete_btn))
 
         try:
-            delete_confirmation_checkboxes = driver.find_elements_by_css_selector(".alertify-toggle input[type='checkbox']")
-            if len(delete_confirmation_checkboxes) > 0: #if this is a deployed form otherwise skip this step
+            delete_confirmation_labels = driver.find_elements_by_css_selector(".alertify-toggle label")
+            if len(delete_confirmation_labels) > 0: #if this is a deployed form otherwise skip this step
                 #check all the dialog's checkboxes
-                for checkbox in delete_confirmation_checkboxes:
-                    if not checkbox.get_attribute('checked'):
-                        checkbox.click()
+                for checkbox in delete_confirmation_labels:
+                    # if not checkbox.get_attribute('checked'):
+                    checkbox.click()
+
             driver.find_element_by_xpath(delete_btn).send_keys(Keys.ENTER)
         except :
             raise Exception("Couldn't delete the form")
