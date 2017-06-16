@@ -100,7 +100,6 @@ class Test_Selenium(empty_test.EmptyTest):
         cls.verificationErrors = []
         cls.accept_next_alert = True
         cls.suite_start_time= time.time()
-        cls.tmp_file_before = cls.find_xls_filenames("/tmp")
 
     @classmethod
     def find_xls_filenames(self, path_to_dir, suffix=".xls" ):
@@ -108,18 +107,16 @@ class Test_Selenium(empty_test.EmptyTest):
         return [ filename for filename in filenames if filename.endswith( suffix ) ]
 
     @classmethod
+    def clear_xls_files(self):
+        tmp_directory = "/tmp"
+        for fname in os.listdir(tmp_directory):
+            if fname.endswith(".xls"):
+                os.remove(os.path.join(tmp_directory, fname))
+
+    @classmethod
     def tearDownClass(cls):
         # Clean up the downloaded XLS file if the test got that far.
-        after  = cls.find_xls_filenames("/tmp")
-        change = set(after) - set(cls.tmp_file_before)
-        file_name ="no file exists"
-        if len(change) == 1:
-            file_name = change.pop
-
-        # print "file_name to be deleted: " + file_name
-        file_path = '/tmp/'+ file_name
-        if os.path.isfile(file_path):
-            os.remove(file_path)
+        cls.clear_xls_files()
 
         #quit browser instance
         cls.driver.quit()

@@ -20,30 +20,32 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
             form_link_el[0].click()
 
             #click on the More Actions button
-            collection_option = "#collect-options"
+            collection_option = ".popover-menu--collectData-menu > a"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, collection_option))
             more_actions_el = driver.find_elements_by_css_selector(collection_option)
             more_actions_el[0].click()
 
-            time.sleep(2)
-
-            #select enketo link
-            enketo_popup_link = collection_option + " + .mdl-menu__container a:nth-child(2)"
+            time.sleep(1)
+            #
+            # #select enketo link
+            enketo_popup_link = "a.popover-menu__link--collect-row[data-method='url']"
 
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, enketo_popup_link))
             enketo_online_link = self.driver.find_element_by_css_selector(enketo_popup_link)
             enketo_online_link.click()
 
-            time.sleep(2)
+            time.sleep(1)
 
-            #click on the open button
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".open"))
-            enketo_form_link = driver.find_element_by_css_selector(".open").get_attribute("href")
+            #Open Enketo Link
+            open_btn_selector = ".collect-link"
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, open_btn_selector))
+            # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".open"))
+            enketo_form_link = driver.find_element_by_css_selector(open_btn_selector).get_attribute("href")
 
             driver.get(enketo_form_link)
 
-            time.sleep(2)
-            #make sure form title exiists
+            time.sleep(1)
+            #make sure form title exists
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, "#form-title"))
 
             #submit in enketo
