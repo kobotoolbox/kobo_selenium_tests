@@ -20,19 +20,7 @@ class ExportDataToXls(empty_test.EmptyTest):
             form_link_el = driver.find_elements_by_css_selector(form_link)
             form_link_el[0].click()
 
-            #click on the DATA dropdown
-            data_dropdown = "#more-data-tab"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, data_dropdown))
-            driver.find_element_by_css_selector(data_dropdown).click()
-
-            time.sleep(1)
-
-            #Click on the downloads link
-            downloads_link = ".popover-menu__link--downloads"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, downloads_link))
-            driver.find_element_by_css_selector(downloads_link).click()
-
-            time.sleep(1)
+            driver.get(driver.current_url.replace("/landing", "/data/downloads"))
 
             #make sure you're on the data/downloads page
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//label[text()='Select export type']"))
@@ -42,7 +30,7 @@ class ExportDataToXls(empty_test.EmptyTest):
 
             driver.find_element_by_css_selector("input[type='submit']").click()
 
-            time.sleep(5)
+            time.sleep(2)
 
             # Make sure the file was downloaded?
             if isinstance(self.driver, webdriver.Remote):

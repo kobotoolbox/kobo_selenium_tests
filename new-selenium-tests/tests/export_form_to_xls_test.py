@@ -18,14 +18,15 @@ class ExportFormToXlsTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
             self.mouse.move_to_element(form_link_el[0]).move_by_offset(0,1).perform()
-            time.sleep(2)
+            time.sleep(1)
 
             #click on the More Actions button
-            more_actions_button = "button[data-tip='More Actions']"
+            more_actions_button = ".popover-menu--assetrow-menu"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
             more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
             more_actions_el[0].click()
-            time.sleep(2)
+
+            time.sleep(1)
 
             #click on the Download as XLS button
             xls_link_selector = ".popover-menu__link.popover-menu__link--dl-xls"

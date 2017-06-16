@@ -18,14 +18,15 @@ class DeployImportedFormTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
             self.mouse.move_to_element(form_link_el[0]).move_by_offset(0,1).perform()
+            print "assertTrue asset-row__buttons and clicked"
 
             #click on the More Actions button
-            more_actions_button = "button[data-tip='More Actions']"
+            more_actions_button = ".popover-menu--assetrow-menu"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
             more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
             more_actions_el[0].click()
 
-            time.sleep(2)
+            time.sleep(1)
 
             #click on the deploy button
             deploy_form_selector = ".popover-menu__link--deploy"
@@ -33,14 +34,9 @@ class DeployImportedFormTest(empty_test.EmptyTest):
             deploy_form_btn = self.driver.find_elements_by_css_selector(deploy_form_selector)
             deploy_form_btn[0].click()
 
-            time.sleep(2)
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='deployed form']"))
 
-            #make sure the status text exists
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-view__status span > span"))
-
-            deployed = driver.find_element_by_css_selector(".form-view__status span > span").text
-            if deployed != "Deployed":
-                raise Exception("The imported form was not deployed")
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//a[text()='redeploy']"))
 
             self.status("PASSED")
 

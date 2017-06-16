@@ -15,10 +15,7 @@ class ImportXlsFormTest(empty_test.EmptyTest):
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
-            self.assertTrue(self.is_element_present_with_wait(By.ID, "sidebar-menu"))
-            sidebar = driver.find_element_by_id("sidebar-menu")
-            sidebar.click()
-            sleep(2)
+            self.clickSideBarNewBtn()
 
             #click on the upload button
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".dropzone input[type='file']"))
@@ -26,7 +23,8 @@ class ImportXlsFormTest(empty_test.EmptyTest):
             driver.find_element_by_css_selector(".dropzone input[type='file']").send_keys(xls_file)
 
             #Make sure the form was uploaded
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-view__label--title"))
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='XLS Upload completed']"))
+
             #This is an empty_test method!
             self.generic_preview_form()
 
