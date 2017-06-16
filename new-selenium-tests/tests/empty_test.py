@@ -51,6 +51,12 @@ class EmptyTest(unittest.TestCase):
             return False
         return True
 
+    def clickSideBarNewBtn(self):
+        driver = self.driver
+        new_btn_selector = "//a[contains(@class, 'popover-menu__toggle') and text()='new']"
+        self.assertTrue(self.is_element_present_with_wait(By.XPATH, new_btn_selector))
+        driver.find_element_by_xpath(new_btn_selector).click()
+
     def close_alert_and_get_its_text(self):
         try:
             alert = self.driver.switch_to_alert()
@@ -101,7 +107,7 @@ class EmptyTest(unittest.TestCase):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
         more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
         more_actions_el[0].click()
-        sleep(2)
+        sleep(0.5)
 
         #click on the Delete button
         delete_form_selector = ".popover-menu__link--delete"
@@ -109,7 +115,7 @@ class EmptyTest(unittest.TestCase):
         delete_form_btn = self.driver.find_elements_by_css_selector(delete_form_selector)
         delete_form_btn[0].click()
 
-        sleep(2)
+        sleep(0.5)
 
         #make sure the confirmation pop-up appears
         delete_btn = '//button[text()="Delete"]'
@@ -124,6 +130,8 @@ class EmptyTest(unittest.TestCase):
                     checkbox.click()
 
             driver.find_element_by_xpath(delete_btn).send_keys(Keys.ENTER)
+            # self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='project deleted permanently']"))
+            sleep(1)
         except :
             raise Exception("Couldn't delete the form")
         # except NoAlertPresentException:
@@ -138,24 +146,26 @@ class EmptyTest(unittest.TestCase):
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
         form_link_el = driver.find_elements_by_css_selector(form_link)
         form_link_el[0].click()
+        print "Clicked asset-row__celllink"
 
         #click on the form preview link
         form_preview_link = ".form-view__link--preview"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_preview_link))
         preview_el = driver.find_elements_by_css_selector(form_preview_link)
         preview_el[0].click()
-
+        print "Clicked form-view__link--preview"
 
         #make sure the preview pop up showed up
         enketo_iframe = ".enketo-holder iframe"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, enketo_iframe))
-
+        print "EXIST CHECKED: enketo-holder iframe "
         #return to the iframe
         driver.switch_to_frame(driver.find_element_by_css_selector(enketo_iframe))
         self.fill_out_enketo_form("#validate-form")
-
+        print "validate-form"
         #return to default frame
         driver.switch_to_default_content()
+        self.driver.find_element_by_css_selector(".modal-x").click()
 
     def fill_out_enketo_form(self, validate_btn):
         #fill out name
@@ -184,9 +194,9 @@ class EmptyTest(unittest.TestCase):
         self.driver.find_element_by_css_selector(validate_btn).click()
 
         #Make sure the validation of the form submission is successful
-        self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message")
-        self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message.success")
-        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, '.vex-dialog-message.success'))
+        self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message"))
+        if(not self.is_element_present_with_wait(By.CSS_SELECTOR, ".vex-dialog-message.success")):
+            self.assertTrue(self.is_element_present(By.CSS_SELECTOR, '.vex-dialog-message.success'))
 
     @classmethod
     def status(self, status):

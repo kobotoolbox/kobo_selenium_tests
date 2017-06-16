@@ -17,11 +17,13 @@ class DeleteAllFormsTest(empty_test.EmptyTest):
 
             #Hover over the assets action buttons
             form_link = ".asset-row__buttons"
-            if(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link)):
+            # Quick Check
+            time.sleep(2)
+            if(self.is_element_present(By.CSS_SELECTOR, form_link)):
                 form_link_list = driver.find_elements_by_css_selector(form_link)
                 for form in form_link_list:
                     self.delete_form()
-                    time.sleep(2)
+                    # time.sleep(0.5)
 
             self.status("PASSED")
 
