@@ -165,9 +165,9 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': export_data_to_xls_test.ExportDataToXls,
             'test_method': 'export_data'
         },
-        'test_11_delete_form': {
-            'test_class': delete_form_test.DeleteFormTest,
-            'test_method': 'delete_form'
+        'test_11_delete_all_forms': {
+            'test_class': delete_all_forms_test.DeleteAllFormsTest,
+            'test_method': 'delete_all_forms'
         },
         'test_12_test_verify_no_forms': {
             'test_class': verify_no_forms_test.VerifyNoFormsTest,
