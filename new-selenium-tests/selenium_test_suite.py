@@ -88,10 +88,14 @@ class Test_Selenium(empty_test.EmptyTest):
             cls.driver = webdriver.Remote(remote_webdriver_root + '/wd/hub',
                 desired_capabilities=cls.BROWSER_CHROME_OPTIONS.to_capabilities())
         else:
+            # jnm: This seems to require a package called xephyr, which I don't
+            # want to bother with finding and installing.
+            # TODO: Use headless Chrome when a browser window is not desired:
+            # https://intoli.com/blog/running-selenium-with-headless-chrome/
             #Initialize a ghost Browser window set visible to 1 if you want to view the test as it runs
-            from pyvirtualdisplay import Display
-            cls.display = Display(visible=cls.BROWSER_VISIBLE, size=(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT))
-            cls.display.start()
+            #from pyvirtualdisplay import Display
+            #cls.display = Display(visible=cls.BROWSER_VISIBLE, size=(cls.BROWSER_WIDTH, cls.BROWSER_HEIGHT))
+            #cls.display.start()
             #Chrome set up
             cls.driver = webdriver.Chrome(chrome_options=cls.BROWSER_CHROME_OPTIONS)
 
@@ -121,8 +125,8 @@ class Test_Selenium(empty_test.EmptyTest):
         #quit browser instance
         cls.driver.quit()
         #quit the window
-        if isinstance(cls.driver, webdriver.Chrome):
-            cls.display.stop()
+        #if isinstance(cls.driver, webdriver.Chrome):
+        #    cls.display.stop()
 
     ALL_TESTS = {
         'test_01_login' : {
