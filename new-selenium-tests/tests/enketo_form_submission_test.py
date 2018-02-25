@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui                  import WebDriverWait
+from selenium.webdriver.support                     import expected_conditions as EC
+from selenium.webdriver.common.by                   import By
 import unittest
 import empty_test
 import time
@@ -10,6 +12,7 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
     def submit_from_enketo(self):
         try:
             driver = self.driver
+            driver.wait = WebDriverWait(driver, 5)
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
@@ -18,6 +21,12 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
             form_link_el[0].click()
+
+            #switch to form tab
+            form_tab_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//a[contains(@class, 'form-view__tab') and text()='Form']")
+            ))
+            form_tab_el.click()
 
             #click on the More Actions button
             collection_option = ".popover-menu--collectData-menu > a"
