@@ -12,6 +12,8 @@ class LoginTest(empty_test.EmptyTest):
             login_url = self.base_url + "accounts/login/?next=/"
             driver.get(login_url)
             print "HIT: " + login_url
+            self.assertTrue((self.is_element_present_with_wait(By.PARTIAL_LINK_TEXT, "Click here to learn more and upgrade")))
+            print driver.current_url
 
             #Make sure the you are on the login page
             self.assertTrue(self.is_element_present_with_wait(By.ID, "id_username"))
