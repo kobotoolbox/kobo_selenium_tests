@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import unittest
 import empty_test
 
+
 class VerifyNoFormsTest(empty_test.EmptyTest):
 
     def test_verify_no_forms(self):
@@ -21,6 +22,7 @@ class VerifyNoFormsTest(empty_test.EmptyTest):
 
         except Exception as e:
             self.handle_test_exceptions(e)
+
 
 if __name__ == "__main__":
     unittest.main()

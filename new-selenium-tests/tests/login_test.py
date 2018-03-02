@@ -4,6 +4,7 @@ import unittest
 import empty_test
 import traceback
 
+
 class LoginTest(empty_test.EmptyTest):
 
     def test_login(self):
@@ -12,10 +13,10 @@ class LoginTest(empty_test.EmptyTest):
             login_url = self.base_url + "accounts/login/?next=/"
             driver.get(login_url)
             print "HIT: " + login_url
-            self.assertTrue((self.is_element_present_with_wait(By.PARTIAL_LINK_TEXT, "Click here to learn more and upgrade")))
+            self.assertTrue(self.is_element_present_with_wait(By.PARTIAL_LINK_TEXT, "Click here to learn more and upgrade"))
             print driver.current_url
 
-            #Make sure the you are on the login page
+            # Make sure the you are on the login page
             self.assertTrue(self.is_element_present_with_wait(By.ID, "id_username"))
             driver.find_element_by_id("id_username").clear()
             driver.find_element_by_id("id_username").send_keys(self.username)
@@ -32,6 +33,7 @@ class LoginTest(empty_test.EmptyTest):
 
         except Exception as e:
             self.handle_test_exceptions(e)
+
 
 if __name__ == "__main__":
     unittest.main()
