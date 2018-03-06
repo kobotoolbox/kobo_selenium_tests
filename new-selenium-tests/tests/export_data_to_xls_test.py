@@ -34,8 +34,6 @@ class ExportDataToXls(empty_test.EmptyTest):
             ))
             download_el.click()
 
-            # driver.get(driver.current_url.replace("/landing", "/data/downloads"))
-
             # make sure you're on the data/downloads page
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//label[text()='Select export type']"))
 
@@ -43,7 +41,11 @@ class ExportDataToXls(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, "input[type='submit']"))
 
             driver.find_element_by_css_selector("input[type='submit']").click()
-
+            download_link_xpath = "//a[contains(@href,'My_Awesome_Kobo_Form')]"
+            download_link_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, download_link_xpath)
+            ))
+            download_link_el.click()
             time.sleep(2)
 
             # Make sure the file was downloaded?
@@ -52,8 +54,7 @@ class ExportDataToXls(empty_test.EmptyTest):
                 #   Instead, inspect the remote Selenium server's filesystem with its browser.
                 driver.get('file:///tmp/')
                 # TODO: Fix this kludge with a pure Xpath solution?
-                # local_file_link = driver.find_element_by_partial_link_text('My_Awesome_Kobo_Form')
-                local_file_link = driver.find_element_by_partial_link_text('.xls')
+                local_file_link = driver.find_element_by_partial_link_text('My_Awesome_Kobo_Form')
                 file_size = local_file_link.find_element_by_xpath('../../td[2]').text
                 self.status('Downloaded {} file `{}`.'.format(file_size, local_file_link.text))
             elif not self.does_file_exist_with_wildcard("/tmp/My_Awesome_Kobo_Form.xls"):
