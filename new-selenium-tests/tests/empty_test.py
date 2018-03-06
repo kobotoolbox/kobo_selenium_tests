@@ -103,7 +103,7 @@ class EmptyTest(unittest.TestCase):
         form_link = ".asset-row__buttons"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
         form_link_el = driver.find_elements_by_css_selector(form_link)
-        self.mouse.move_to_element(form_link_el[0]).move_by_offset(0, 1).perform()
+        self.mouse.move_to_element(form_link_el[0]).perform()
 
         # click on the More Actions button
         more_actions_button = ".popover-menu--assetrow-menu"

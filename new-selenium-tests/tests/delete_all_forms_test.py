@@ -22,11 +22,15 @@ class DeleteAllFormsTest(empty_test.EmptyTest):
             time.sleep(2)
             if self.is_element_present(By.CSS_SELECTOR, form_link):
                 form_link_list = driver.find_elements_by_css_selector(form_link)
-                for form in form_link_list:
+                for _ in form_link_list:
                     # print type(self)
                     # print self
                     self.delete_form()
-                    # time.sleep(0.5)
+                    # TODO: it would be better to make sure that the deleted form
+                    # has actually disappeared from the form list before calling
+                    # `delete_form()` again, since there's a bit of a delay between
+                    # confirming the deletion and the list of forms refreshing
+                    time.sleep(2)
 
             self.status("PASSED")
 
