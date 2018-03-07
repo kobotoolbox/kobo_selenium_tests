@@ -17,7 +17,6 @@ from tests import deploy_imported_form_test
 from tests import enketo_form_submission_test
 from tests import export_data_to_xls_test
 from tests import verify_no_forms_test
-from tests import delete_form_test
 from tests import logout_test
 
 
@@ -172,14 +171,14 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': export_data_to_xls_test.ExportDataToXls,
             'test_method': 'export_data'
         },
-        # 'test_11_delete_all_forms': {
-        #     'test_class': delete_all_forms_test.DeleteAllFormsTest,
-        #     'test_method': 'delete_all_forms'
-        # },
-        # 'test_12_test_verify_no_forms': {
-        #     'test_class': verify_no_forms_test.VerifyNoFormsTest,
-        #     'test_method': 'test_verify_no_forms'
-        # },
+        'test_11_delete_all_forms': {
+            'test_class': delete_all_forms_test.DeleteAllFormsTest,
+            'test_method': 'delete_all_forms'
+        },
+        'test_12_test_verify_no_forms': {
+            'test_class': verify_no_forms_test.VerifyNoFormsTest,
+            'test_method': 'test_verify_no_forms'
+        },
         'test_13_test_logout': {
             'test_class': logout_test.LogoutTest,
             'test_method': 'test_logout'
