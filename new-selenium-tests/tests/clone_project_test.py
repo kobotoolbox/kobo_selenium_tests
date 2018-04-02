@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import unittest
 import empty_test
@@ -15,29 +16,50 @@ class CloneProjectTest(empty_test.EmptyTest):
             driver.get(self.base_url + "#/forms")
 
             # Hover over the assets action buttons
-            form_link = ".asset-row__buttons"
+            form_link = ".asset-row__celllink--titled"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
-            self.mouse.move_to_element(form_link_el[0]).move_by_offset(0, 1).perform()
-            time.sleep(1)
+            form_link_el[0].click()
+            print driver.current_url
+
+            # switch to Form tab
+            form_tab_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//a[contains(@class, 'form-view__tab') and text()='Form']")
+            ))
+            form_tab_el.click()
+
+            # # Hover over the assets action buttons
+            # form_link = ".asset-row__buttons"
+            # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
+            # form_link_el = driver.find_elements_by_css_selector(form_link)
+            # self.mouse.move_to_element(form_link_el[0]).move_by_offset(0, 1).perform()
+            # time.sleep(1)
+            #
+            # # click on the More Actions button
+            # more_actions_button = ".popover-menu__toggle"
+            # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
+            # more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
+            # more_actions_el[0].click()
 
             # click on the More Actions button
-            more_actions_button = ".popover-menu--assetrow-menu"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
-            more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
+            more_actions_selector = "//a[contains(@data-tip,'More Actions')]"
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, more_actions_selector))
+            more_actions_el = driver.find_elements_by_xpath(more_actions_selector)
             more_actions_el[0].click()
 
-            time.sleep(1)
+            time.sleep(2)
 
             # click on the Clone this Project button
-            xls_link_selector = ".popover-menu__link:contains('Clone this Project')"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, xls_link_selector))
-            xls_link = self.driver.find_elements_by_css_selector(xls_link_selector)
-            xls_link[0].click()
+            clone_project_selector = "//a[text()='Clone this project']"
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, clone_project_selector))
+            clone_link = self.driver.find_elements_by_xpath(clone_project_selector)
+            clone_link[0].click()
 
             ok_selector = ".ajs-button.ajs-ok"
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, clone_project_selector))
+
             ok_button = self.driver.find_elements_by_css_selector(ok_selector)
-            ok_button.click()
+            ok_button[0].click()
 
 
             self.status("PASSED")

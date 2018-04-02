@@ -17,6 +17,7 @@ from tests import deploy_imported_form_test
 from tests import enketo_form_submission_test
 from tests import custom_reports_test
 from tests import view_table_record_test
+from tests import clone_project_test
 from tests import export_data_to_xls_test
 from tests import verify_no_forms_test
 from tests import logout_test
@@ -165,17 +166,21 @@ class Test_Selenium(empty_test.EmptyTest):
 
         'test_111_view_table_record': {
             'test_class': view_table_record_test.ViewTableRecordTest,
-            'test_method': 'view_table_record'
+            'test_method': 'view_table_record'        },
+        'test_112_clone_project': {
+            'test_class': clone_project_test.CloneProjectTest,
+            'test_method': 'clone_project'
         },
-        'test_112_delete_all_forms': {
+
+        'test_120_delete_all_forms': {
             'test_class': delete_all_forms_test.DeleteAllFormsTest,
             'test_method': 'delete_all_forms'
         },
-        'test_113_test_verify_no_forms': {
+        'test_121_test_verify_no_forms': {
             'test_class': verify_no_forms_test.VerifyNoFormsTest,
             'test_method': 'test_verify_no_forms'
         },
-        'test_114_test_logout': {
+        'test_122_test_logout': {
             'test_class': logout_test.LogoutTest,
             'test_method': 'test_logout'
         }
