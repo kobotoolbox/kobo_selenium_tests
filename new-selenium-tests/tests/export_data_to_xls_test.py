@@ -29,6 +29,8 @@ class ExportDataToXls(empty_test.EmptyTest):
             ))
             data_tab_el.click()
 
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//span[contains(@class, 'respondents') and contains(text(), 'respondents answered this question.')]"))
+
             download_el = driver.wait.until(EC.presence_of_element_located(
                 (By.XPATH, "//a[contains(@class, 'form-view__tab undefined') and text()='Downloads']")
             ))

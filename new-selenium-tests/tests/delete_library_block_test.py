@@ -7,14 +7,14 @@ import time
 from selenium.common.exceptions import NoAlertPresentException
 
 
-class DeleteAllFormsTest(empty_test.EmptyTest):
+class DeleteLibraryBlockTest(empty_test.EmptyTest):
 
-    def delete_all_forms(self):
+    def delete_library_block(self):
         try:
             driver = self.driver
             driver.implicitly_wait(0)
             self.mouse = webdriver.ActionChains(self.driver)
-            driver.get(self.base_url + "#/forms")
+            driver.get(self.base_url + "#/library")
 
             # Hover over the assets action buttons
             form_link = ".asset-row__buttons"
@@ -31,7 +31,6 @@ class DeleteAllFormsTest(empty_test.EmptyTest):
                     # `delete_form()` again, since there's a bit of a delay between
                     # confirming the deletion and the list of forms refreshing
                     time.sleep(2)
-
             if self.is_element_present(By.CSS_SELECTOR, form_link):
                 self.status("FAILED")
             else:
