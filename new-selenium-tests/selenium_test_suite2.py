@@ -18,6 +18,13 @@ from tests import enketo_form_submission_test
 from tests import custom_reports_test
 from tests import view_table_record_test
 from tests import clone_project_test
+from tests import share_project_test
+from tests import create_new_collection_test
+from tests import add_new_question_block_test
+from tests import add_question_block_to_collection_test
+from tests import modify_question_block_tags_test
+from tests import subscribe_library_collection_test
+from tests import delete_library_block_test
 from tests import export_data_to_xls_test
 from tests import verify_no_forms_test
 from tests import logout_test
@@ -39,6 +46,9 @@ class Test_Selenium(empty_test.EmptyTest):
         KOBOCAT_URL += '/'
     KOBO_USERNAME = os.environ.get('KOBO_USERNAME', 'selenium_test')
     KOBO_PASSWORD = os.environ.get('KOBO_PASSWORD', 'selenium_test')
+    KOBO_USERNAME2 = os.environ.get('KOBO_USERNAME1', 'selenium_test2')
+    KOBO_PASSWORD2 = os.environ.get('KOBO_PASSWORD1', 'selenium_test2')
+
     # TODO: Type is `str` or `bool`. Fix?
     KOBO_DISABLE_TIMEOUT = os.environ.get('KOBO_DISABLE_TIMEOUT', False)
     # TODO: Remove? Unused?
@@ -142,6 +152,7 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': delete_all_forms_test.DeleteAllFormsTest,
             'test_method': 'delete_all_forms'
         },
+
         'test_103_new_form': {
             'test_class': new_form_from_scratch_test.NewFormFromScratchTest,
             'test_method': 'create_new_form_from_scratch'
@@ -164,23 +175,55 @@ class Test_Selenium(empty_test.EmptyTest):
         #     'test_method': 'custom_reports'
         # },
 
-        'test_111_view_table_record': {
-            'test_class': view_table_record_test.ViewTableRecordTest,
-            'test_method': 'view_table_record'        },
-        'test_112_clone_project': {
+        # 'test_111_view_table_record': {
+        #     'test_class': view_table_record_test.ViewTableRecordTest,
+        #     'test_method': 'view_table_record'
+        # },
+
+        # 'test_112_share_project': {
+        #     'test_class': share_project_test.ShareProjectTest,
+        #     'test_method': 'share_project'
+        # },
+
+        'test_113_clone_project': {
             'test_class': clone_project_test.CloneProjectTest,
             'test_method': 'clone_project'
         },
+        'test_114_add_new_question_block': {
+            'test_class': add_new_question_block_test.AddNewQuestionBlockTest,
+            'test_method': 'add_new_question_block'
+        },
+        'test_115_create_new_collection': {
+            'test_class': create_new_collection_test.CreateNewCollectionTest,
+            'test_method': 'create_new_collection'
+        },
+        'test_116_add_question_block_to_collection': {
+            'test_class': add_question_block_to_collection_test.AddQuestionBlockToCollectionTest,
+            'test_method': 'add_question_block_to_collection'
+        },
+        'test_117_modify_question_block_tags': {
+            'test_class': modify_question_block_tags_test.ModifyQuestionBlockTagsTest,
+            'test_method': 'modify_question_block_tags'
+        },
+        'test_118_subscribe_library_collection': {
+            'test_class': subscribe_library_collection_test.SubscribeLibraryCollectionTest,
+            'test_method': 'subscribe_library_collection'
+        },
+        'test_119_delete_library_block': {
+            'test_class': delete_library_block_test.DeleteLibraryBlockTest,
+            'test_method': 'delete_library_block'
+        },
 
-        'test_120_delete_all_forms': {
+
+        'test_220_delete_all_forms': {
             'test_class': delete_all_forms_test.DeleteAllFormsTest,
             'test_method': 'delete_all_forms'
         },
-        'test_121_test_verify_no_forms': {
+        'test_221_test_verify_no_forms': {
             'test_class': verify_no_forms_test.VerifyNoFormsTest,
             'test_method': 'test_verify_no_forms'
         },
-        'test_122_test_logout': {
+        'test_222_test_logout': {
             'test_class': logout_test.LogoutTest,
             'test_method': 'test_logout'
         }
@@ -192,6 +235,8 @@ class Test_Selenium(empty_test.EmptyTest):
         # self.username = ""
         self.username = self.KOBO_USERNAME
         self.password = self.KOBO_PASSWORD
+        self.username2 = self.KOBO_USERNAME2
+        self.password2 = self.KOBO_PASSWORD2
         first_try = True
         # Run all the tests twice in case of a failure
         try:

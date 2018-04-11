@@ -15,10 +15,17 @@ class CloneProjectTest(empty_test.EmptyTest):
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
+            time.sleep(4)
             # Hover over the assets action buttons
-            form_link = ".asset-row__celllink--titled"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
-            form_link_el = driver.find_elements_by_css_selector(form_link)
+            form_link_selector = ".asset-row__celllink--titled"
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link_selector))
+            form_link_el = driver.find_elements_by_css_selector(form_link_selector)
+
+            # TODO Why doesn't this work?
+            # form_link_el = driver.wait.until(EC.presence_of_element_located(
+            #    (By.CSS_SELECTOR, form_link_selector)
+            #))
+
             form_link_el[0].click()
             print driver.current_url
 
@@ -28,18 +35,6 @@ class CloneProjectTest(empty_test.EmptyTest):
             ))
             form_tab_el.click()
 
-            # # Hover over the assets action buttons
-            # form_link = ".asset-row__buttons"
-            # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
-            # form_link_el = driver.find_elements_by_css_selector(form_link)
-            # self.mouse.move_to_element(form_link_el[0]).move_by_offset(0, 1).perform()
-            # time.sleep(1)
-            #
-            # # click on the More Actions button
-            # more_actions_button = ".popover-menu__toggle"
-            # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, more_actions_button))
-            # more_actions_el = driver.find_elements_by_css_selector(more_actions_button)
-            # more_actions_el[0].click()
 
             # click on the More Actions button
             more_actions_selector = "//a[contains(@data-tip,'More Actions')]"

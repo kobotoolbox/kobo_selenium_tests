@@ -18,11 +18,16 @@ class AddNewQuestionBlockTest(empty_test.EmptyTest):
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
+            time.sleep(2)
+
             # Enter My Library
             library_selector = ".library.k-drawer__link"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, library_selector))
-            form_link_el = driver.find_elements_by_css_selector(library_selector)
-            form_link_el[0].click()
+
+            form_link_el = driver.wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, library_selector)
+            ))
+            form_link_el.click()
 
             # start new library
             new_library_el = driver.wait.until(EC.presence_of_element_located(
@@ -42,6 +47,7 @@ class AddNewQuestionBlockTest(empty_test.EmptyTest):
             # this function is a helper function from the empty_test class
             self.add_new_question("Name", "text")
             self.add_new_question("LastName", "text")
+            time.sleep(1)
             self.add_new_question("Avatar", "image")
             self.add_new_question("Gender", "select_one")
 
@@ -56,7 +62,7 @@ class AddNewQuestionBlockTest(empty_test.EmptyTest):
             # since if it runs the very last second of the hour, it won't pass
             current_hour = int(time.strftime("%I"))
             time_phrase = "Today at {}')]".format(current_hour)
-            time_xpath_string = "//span[contains(text(), '"+time_phrase
+            time_xpath_string = "//span[contains(text(), '"+ time_phrase
             print time_xpath_string
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, time_xpath_string ))
 

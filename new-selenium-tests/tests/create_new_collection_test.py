@@ -38,9 +38,11 @@ class CreateNewCollectionTest(empty_test.EmptyTest):
             input_selector = "input.ajs-input"
             input_el = driver.wait.until(EC.presence_of_element_located(
                 (By.CSS_SELECTOR, input_selector)
-            )).send_keys("My Wonderful KoboToolbox Collection")
+            ))
+            time.sleep(1)
+            input_el.send_keys("My Wonderful KoboToolbox Collection")
 
-
+            time.sleep(1)
 
             # click the Create Collection button
             create_collection_selector = "//button[text()='Create collection']"
@@ -49,11 +51,12 @@ class CreateNewCollectionTest(empty_test.EmptyTest):
             ))
             create_collection_el.click()
             time.sleep(2)
+
+            # Assert that the new collection has appeared
             new_collection_present_selector = "//a[@data-collection-name='My Wonderful KoboToolbox Collection']"
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, new_collection_present_selector))
 
             self.status("PASSED")
-
 
 
         except Exception as e:

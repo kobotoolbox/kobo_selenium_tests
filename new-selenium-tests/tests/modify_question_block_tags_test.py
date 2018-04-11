@@ -22,7 +22,6 @@ class ModifyQuestionBlockTagsTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
             self.mouse.move_to_element(form_link_el[0]).move_by_offset(0, 1).perform()
-            print "assertTrue asset-row__buttons and clicked"
 
             # click on the Tags button
             tag_button_selector = ".popover-menu--assetrow-menu"
@@ -39,9 +38,30 @@ class ModifyQuestionBlockTagsTest(empty_test.EmptyTest):
             ))
             tag_btn_el.click()
 
-            # self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='deployed form']"))
-            #
-            # self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//a[text()='redeploy']"))
+            # Add Tags
+            tag_input_selector = "input.react-tagsinput-input"
+            tag_input_el = driver.wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, tag_input_selector)
+            ))
+            tag_input_el.send_keys("Tag1")
+            tag_input_el.send_keys(Keys.ENTER)
+            tag_input_el.send_keys("Tag2")
+            tag_input_el.send_keys(Keys.ENTER)
+
+            # Remove Tag1
+            remove_tag1_selector = "//span[@class='react-tagsinput-tag' and text()='Tag1']/a[@class='react-tagsinput-remove']"
+            remove_tag1_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, remove_tag1_selector)
+            ))
+            time.sleep(1)
+
+            remove_tag1_el.click()
+
+            # Assert that Tag2 is present, and Tag1 is absent
+            self.assertTrue(self.is_element_present_with_wait(By.XPATH,
+                            "//span[@class='react-tagsinput-tag' and text()='Tag2']"))
+            self.assertFalse(self.is_element_present_with_wait(By.XPATH,
+                            "//span[@class='react-tagsinput-tag' and text()='Tag1']"))
 
             self.status("PASSED")
 
