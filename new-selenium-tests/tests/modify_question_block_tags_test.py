@@ -59,9 +59,9 @@ class ModifyQuestionBlockTagsTest(empty_test.EmptyTest):
 
             # Assert that Tag2 is present, and Tag1 is absent
             self.assertTrue(self.is_element_present_with_wait(By.XPATH,
-                            "//span[@class='react-tagsinput-tag' and text()='Tag2']"))
+                            "//span[@class='react-tagsinput-tag' and text()='Tag2']",how_long=3))
             self.assertFalse(self.is_element_present_with_wait(By.XPATH,
-                            "//span[@class='react-tagsinput-tag' and text()='Tag1']"))
+                            "//span[@class='react-tagsinput-tag' and text()='Tag1']", how_long=3))
 
             self.status("PASSED")
 

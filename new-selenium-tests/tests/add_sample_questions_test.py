@@ -20,6 +20,7 @@ class AddSampleQuestionsTest(empty_test.EmptyTest):
             self.add_new_question("LastName", "text")
             self.add_new_question("Avatar", "image")
             self.add_new_question("Gender", "select_one")
+            self.add_new_question("Place", "geopoint")
 
             # click the save button
             save_btn_selector = ".formBuilder-header__button--save"

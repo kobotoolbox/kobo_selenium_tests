@@ -33,7 +33,7 @@ class CustomReports(empty_test.EmptyTest):
             time.sleep(2)
 
             custom_reports_el = driver.wait.until(EC.presence_of_element_located(
-                (By.CSS_SELECTOR, ".popover-menu__toggle")
+                (By.CSS_SELECTOR, ".popover-menu--custom-reports")
             ))
             custom_reports_el.click()
 

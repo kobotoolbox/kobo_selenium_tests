@@ -16,6 +16,7 @@ class ViewTableRecordTest(empty_test.EmptyTest):
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
+            time.sleep(2)
             # Hover over the assets action buttons
             form_link = ".asset-row__celllink--titled"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
@@ -46,6 +47,17 @@ class ViewTableRecordTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".submission--question"))
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".submission--response"))
 
+            close_record_detail_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//a[@class='modal-x']")
+            ))
+            close_record_detail_el.click()
+
+            # time.sleep(2)
+
+            close_record_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//a[@class='form-view__link form-view__link--close']")
+            ))
+            close_record_el.click()
 
             self.status("PASSED")
 

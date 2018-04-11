@@ -170,15 +170,16 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'submit_from_enketo'
         },
 
-        # 'test_110_custom_reports': {
-        #     'test_class': custom_reports_test.CustomReports,
-        #     'test_method': 'custom_reports'
-        # },
 
-        # 'test_111_view_table_record': {
-        #     'test_class': view_table_record_test.ViewTableRecordTest,
-        #     'test_method': 'view_table_record'
-        # },
+        'test_110_custom_reports': {
+            'test_class': custom_reports_test.CustomReports,
+            'test_method': 'custom_reports'
+        },
+
+        'test_111_view_table_record': {
+            'test_class': view_table_record_test.ViewTableRecordTest,
+            'test_method': 'view_table_record'
+        },
 
         # 'test_112_share_project': {
         #     'test_class': share_project_test.ShareProjectTest,
