@@ -135,49 +135,9 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': login_test.LoginTest,
             'test_method': 'test_login'
         },
-        'test_02_delete_all_forms': {
-            'test_class': delete_all_forms_test.DeleteAllFormsTest,
-            'test_method': 'delete_all_forms'
-        },
-        'test_03_new_form': {
-            'test_class': new_form_from_scratch_test.NewFormFromScratchTest,
-            'test_method': 'create_new_form_from_scratch'
-        },
-        'test_04_add_sample_question': {
-            'test_class': add_sample_questions_test.AddSampleQuestionsTest,
-            'test_method': 'add_questions_test'
-        },
-        'test_05_preview_form': {
-            'test_class': preview_form_test.PreviewFormTest,
-            'test_method': 'preview_form'
-        },
-        'test_06_export_form_to_xls': {
-            'test_class': export_form_to_xls_test.ExportFormToXlsTest,
-            'test_method': 'export_form_to_xls'
-        },
-        'test_07_import_xls_form': {
-            'test_class': import_xls_form_test.ImportXlsFormTest,
-            'test_method': 'test_import_xls_form'
-        },
-        'test_08_deploy_form': {
-            'test_class': deploy_imported_form_test.DeployImportedFormTest,
-            'test_method': 'deploy_form'
-        },
-        'test_09_submit_from_enketo': {
-            'test_class': enketo_form_submission_test.EnketoFormSubmissionTest,
-            'test_method': 'submit_from_enketo'
-        },
-        'test_10_export_data': {
-            'test_class': export_data_to_xls_test.ExportDataToXls,
-            'test_method': 'export_data'
-        },
-        'test_11_delete_all_forms': {
-            'test_class': delete_all_forms_test.DeleteAllFormsTest,
-            'test_method': 'delete_all_forms'
-        },
-        'test_12_test_verify_no_forms': {
-            'test_class': verify_no_forms_test.VerifyNoFormsTest,
-            'test_method': 'test_verify_no_forms'
+        'test_02_test_login_after_logout': {
+            'test_class': login_test.LoginTest,
+            'test_method': 'test_login_after_logout'
         },
         'test_13_test_logout': {
             'test_class': logout_test.LogoutTest,
@@ -200,6 +160,9 @@ class Test_Selenium(empty_test.EmptyTest):
                 test_case_class = current_test.get('test_class')
                 test_case_class.__dict__[current_test.get('test_method')](self)
         except:
+            # jnm: fail quickly the first time to ease debugging.
+            raise
+
             # TODO: Move second attempt out of the class and into `__main__`.
             # Initialize a new browser for a fresh test
             self.tearDownClass()
