@@ -22,6 +22,7 @@ from tests import share_project_test
 from tests import create_new_collection_test
 from tests import add_new_question_block_test
 from tests import add_question_block_to_collection_test
+from tests import delete_collection_test
 from tests import modify_question_block_tags_test
 from tests import subscribe_library_collection_test
 from tests import delete_library_block_test
@@ -202,15 +203,21 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': add_question_block_to_collection_test.AddQuestionBlockToCollectionTest,
             'test_method': 'add_question_block_to_collection'
         },
-        'test_117_modify_question_block_tags': {
+
+        'test_117_delete_collection': {
+            'test_class': delete_collection_test.DeleteCollectionTest,
+            'test_method': 'delete_collection'
+        },
+
+        'test_118_modify_question_block_tags': {
             'test_class': modify_question_block_tags_test.ModifyQuestionBlockTagsTest,
             'test_method': 'modify_question_block_tags'
         },
-        'test_118_subscribe_library_collection': {
+        'test_119_subscribe_library_collection': {
             'test_class': subscribe_library_collection_test.SubscribeLibraryCollectionTest,
             'test_method': 'subscribe_library_collection'
         },
-        'test_119_delete_library_block': {
+        'test_120_delete_library_block': {
             'test_class': delete_library_block_test.DeleteLibraryBlockTest,
             'test_method': 'delete_library_block'
         },
