@@ -47,8 +47,8 @@ class Test_Selenium(empty_test.EmptyTest):
         KOBOCAT_URL += '/'
     KOBO_USERNAME = os.environ.get('KOBO_USERNAME', 'selenium_test')
     KOBO_PASSWORD = os.environ.get('KOBO_PASSWORD', 'selenium_test')
-    KOBO_USERNAME2 = os.environ.get('KOBO_USERNAME1', 'selenium_test2')
-    KOBO_PASSWORD2 = os.environ.get('KOBO_PASSWORD1', 'selenium_test2')
+    KOBO_USERNAME2 = os.environ.get('KOBO_USERNAME2', 'selenium_test_2')
+    KOBO_PASSWORD2 = os.environ.get('KOBO_PASSWORD2', 'selenium_test_2')
 
     # TODO: Type is `str` or `bool`. Fix?
     KOBO_DISABLE_TIMEOUT = os.environ.get('KOBO_DISABLE_TIMEOUT', False)

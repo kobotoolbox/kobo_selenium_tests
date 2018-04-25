@@ -16,6 +16,7 @@ class AddSampleQuestionsTest(empty_test.EmptyTest):
             # create a new empty question and wait for one second by default
             # or add a third parameter with value of seconds to wait
             # this function is a helper function from the empty_test class
+            time.sleep(2)
             self.add_new_question("Name", "text")
             self.add_new_question("LastName", "text")
             self.add_new_question("Avatar", "image")
@@ -24,13 +25,13 @@ class AddSampleQuestionsTest(empty_test.EmptyTest):
 
             # click the save button
             save_btn_selector = ".formBuilder-header__button--save"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, save_btn_selector, 10))
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, save_btn_selector, 20))
             driver.find_element_by_css_selector(save_btn_selector).send_keys(Keys.ENTER)
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='successfully updated']"))
 
             # close the modal
             close_btn_selector = ".formBuilder-header__close"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, close_btn_selector, 10))
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, close_btn_selector, 20))
             driver.find_element_by_css_selector(close_btn_selector).send_keys(Keys.ENTER)
 
             self.status("PASSED")

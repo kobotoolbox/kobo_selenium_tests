@@ -125,7 +125,7 @@ class Test_Selenium(empty_test.EmptyTest):
         cls.clear_xls_files()
 
         # quit browser instance
-        # cls.driver.quit()
+        cls.driver.quit()
         # quit the window
         # if isinstance(cls.driver, webdriver.Chrome):
         #    cls.display.stop()
