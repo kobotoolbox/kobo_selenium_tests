@@ -37,9 +37,13 @@ class DeleteCollectionTest(empty_test.EmptyTest):
             ))
             delete_collection_el.click()
 
-            ok_selector = ".ajs-button.ajs-ok"
-            ok_button = self.driver.find_elements_by_css_selector(ok_selector)
-            ok_button[0].click()
+            delete_button_selector = ".ajs-button.ajs-ok"
+            # delete_button = self.driver.find_elements_by_css_selector(ok_selector)
+            delete_button_el = driver.wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, delete_button_selector)
+            ))
+
+            delete_button_el.click()
             time.sleep(2)
 
             self.assertFalse(

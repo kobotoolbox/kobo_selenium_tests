@@ -174,23 +174,28 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'share_collection'
         },
 
-        'test_312_share_project_form_landing': {
+        'test_312_delete_collection': {
+            'test_class': delete_collection_test.DeleteCollectionTest,
+            'test_method': 'delete_collection'
+        },
+
+        'test_313_share_project_form_landing': {
             'test_class': share_project_form_landing_test.ShareProjectFormLandingTest,
             'test_method': 'share_project_form_landing'
         },
-        # 'test_313_share_project_list_view': {
+        # 'test_314_share_project_list_view': {
         #     'test_class': share_project_list_view_test.ShareProjectListViewTest,
         #     'test_method': 'share_project_list_view'
         # },
-        'test_314_remove_shared_user': {
+        'test_315_remove_shared_user': {
             'test_class': remove_shared_user_test.RemoveSharedUserTest,
             'test_method': 'remove_shared_user'
         },
-        'test_315_edit_name_description': {
+        'test_316_edit_name_description': {
             'test_class': edit_name_description_test.EditNameDescriptionTest,
             'test_method': 'edit_name_description'
         },
-        'test_316_archive_project': {
+        'test_317_archive_project': {
             'test_class': archive_project_test.ArchiveProjectTest,
             'test_method': 'archive_project'
         },
