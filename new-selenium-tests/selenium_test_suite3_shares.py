@@ -19,16 +19,20 @@ from tests import custom_reports_test
 from tests import view_table_record_test
 from tests import clone_project_test
 from tests import share_project_form_landing_test
+from tests import remove_shared_user_test
 from tests import share_project_list_view_test
 from tests import create_new_collection_test
 from tests import add_new_question_block_test
 from tests import add_question_block_to_collection_test
 from tests import delete_collection_test
+from tests import share_collection_test
 from tests import modify_question_block_tags_test
 from tests import subscribe_library_collection_test
 from tests import delete_library_block_test
 from tests import export_data_to_xls_test
 from tests import verify_no_forms_test
+from tests import edit_name_description_test
+from tests import archive_project_test
 from tests import logout_test
 
 
@@ -151,19 +155,50 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'test_login'
         },
 
-        'test_212_share_project_form_landing': {
+        'test_114_add_new_question_block': {
+            'test_class': add_new_question_block_test.AddNewQuestionBlockTest,
+            'test_method': 'add_new_question_block'
+        },
+
+        'test_115_create_new_collection': {
+            'test_class': create_new_collection_test.CreateNewCollectionTest,
+            'test_method': 'create_new_collection'
+        },
+
+        'test_116_add_question_block_to_collection': {
+            'test_class': add_question_block_to_collection_test.AddQuestionBlockToCollectionTest,
+            'test_method': 'add_question_block_to_collection'
+        },
+        'test_311_share_collection': {
+            'test_class': share_collection_test.ShareCollectionTest,
+            'test_method': 'share_collection'
+        },
+
+        'test_312_share_project_form_landing': {
             'test_class': share_project_form_landing_test.ShareProjectFormLandingTest,
             'test_method': 'share_project_form_landing'
         },
-        # 'test_213_share_project_list_view': {
+        # 'test_313_share_project_list_view': {
         #     'test_class': share_project_list_view_test.ShareProjectListViewTest,
         #     'test_method': 'share_project_list_view'
         # },
+        'test_314_remove_shared_user': {
+            'test_class': remove_shared_user_test.RemoveSharedUserTest,
+            'test_method': 'remove_shared_user'
+        },
+        'test_315_edit_name_description': {
+            'test_class': edit_name_description_test.EditNameDescriptionTest,
+            'test_method': 'edit_name_description'
+        },
+        'test_316_archive_project': {
+            'test_class': archive_project_test.ArchiveProjectTest,
+            'test_method': 'archive_project'
+        },
 
-        # 'test_322_test_logout': {
-        #     'test_class': logout_test.LogoutTest,
-        #     'test_method': 'test_logout'
-        # }
+        'test_522_test_logout': {
+            'test_class': logout_test.LogoutTest,
+            'test_method': 'test_logout'
+        }
     }
 
     # Run all the tests based on the values from ALL_TESTS

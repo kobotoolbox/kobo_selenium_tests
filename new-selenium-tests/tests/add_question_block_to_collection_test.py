@@ -36,8 +36,9 @@ class AddQuestionBlockToCollectionTest(empty_test.EmptyTest):
 
             # https://stackoverflow.com/questions/9199415/getting-first-node-in-xpath-result-set
             move_to_selector = "(//*[@class='asset-row__buttons'])[1]/div/div/div[@class='popover-menu__moveTo']/div[@title='My Wonderful KoboToolbox Collection']"
+            time.sleep(1)
             # Quick Check
-            move_to_selector_el = driver.wait.until(EC.presence_of_element_located(
+            move_to_selector_el = driver.wait.until(EC.visibility_of_element_located(
                 (By.XPATH, move_to_selector)
             ))
             move_to_selector_el.click()
