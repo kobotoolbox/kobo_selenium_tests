@@ -1,0 +1,32 @@
+
+All tests require Chrome browser and a user named 'test_selenium'.
+  
+- **login**  
+- **delete_all_forms**  
+- **new_form**  
+- **add_sample_question**  
+    - Requires a form modal to be on the screen, as new_form ended.  
+- **deploy_form**  
+    - Requires a form, such as the "My Awesome KoboToolbox Form" created in new_form  
+- **submit_from_enketo**  
+    - Requires a form, such as the "My Awesome KoboToolbox Form" created in new_form  
+- **add_new_question_block**  
+- **create_new_collection**  
+- **add_question_block_to_collection**
+    - Requires 'My Wonderful KoboToolbox Collection' created in create_new_collection  
+- **share_collection**  
+    - Requires 'My Wonderful KoboToolbox Collection' created in create_new_collection  
+    - Requires test_selenium_2 account to exist  
+- **delete_collection**  
+    - Requires 'My Wonderful KoboToolbox Collection' created in create_new_collection  
+- **share_project_form_landing**  
+- **remove_shared_user**  
+    - Requires a form, such as the "My Awesome KoboToolbox Form" created in new_form  
+    - Requires test_selenium_2 account to exist  
+- **edit_name_description**  
+    - Requires 'My Wonderful KoboToolbox Collection' created in create_new_collection  
+- **archive_project**  
+    - Requires a form, such as the "My Awesome KoboToolbox Form" created in new_form  
+- **map**
+    - Will require a form, such as the "My Awesome KoboToolbox Form" created in new_form  
+- **test_logout**
