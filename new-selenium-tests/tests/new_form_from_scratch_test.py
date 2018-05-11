@@ -2,6 +2,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 import unittest
 import time
 import empty_test
@@ -12,17 +15,13 @@ class NewFormFromScratchTest(empty_test.EmptyTest):
     def create_new_form_from_scratch(self):
         try:
             driver = self.driver
+            driver.wait = WebDriverWait(driver, 5)
             self.mouse = webdriver.ActionChains(self.driver)
-            # go to enwe form page and click on the sidbar menu
+            # go to new form page and click on the sidebar menu
             driver.get(self.base_url + "#/forms")
             driver.maximize_window()
 
             self.clickSideBarNewBtn()
-
-            new_project_btn_selector = ".form-sidebar__wrapper .popover-menu__content--visible > .popover-menu__link"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, new_project_btn_selector))
-            new_project_btn = driver.find_element_by_css_selector(new_project_btn_selector)
-            new_project_btn.click()
 
             self.assertTrue(self.is_element_present_with_wait(By.ID, "name"))
             driver.find_element_by_css_selector("#name").send_keys("My Awesome KoboToolbox Form")
@@ -49,6 +48,12 @@ class NewFormFromScratchTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-modal__item--actions button"))
             submit_button = driver.find_element(By.CSS_SELECTOR, ".form-modal__item--actions button")
             submit_button.send_keys(Keys.ENTER)
+
+            # Complete "Create New Project (step 2 of 2)"
+            design_button_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//button[text() = 'Design in Form Builder']")
+            ))
+            design_button_el.click()
 
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".formBuilder"))
 
