@@ -55,7 +55,7 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
             driver.get(enketo_form_link)
 
             time.sleep(1)
-            
+
             # Make sure form title exists
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, "#form-title"))
 
