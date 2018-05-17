@@ -55,12 +55,20 @@ class EnketoFormSubmissionTest(empty_test.EmptyTest):
             driver.get(enketo_form_link)
 
             time.sleep(1)
-            # make sure form title exists
+            
+            # Make sure form title exists
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, "#form-title"))
 
-            # submit in enketo
+            # Submit in enketo
             self.fill_out_enketo_form("#submit-form")
+            time.sleep(2)
 
+            # Close submission dialog
+            submit_btn_selector = "//button[contains(@class, 'vex-dialog-button') and text()='Close']"
+            submit_btn_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, submit_btn_selector)
+            ))
+            submit_btn_el.click()
             self.status("PASSED")
 
         except Exception as e:
