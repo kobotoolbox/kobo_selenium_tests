@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import unittest
 import empty_test
 import time
@@ -31,8 +32,11 @@ class DeployImportedFormTest(empty_test.EmptyTest):
             # click on the deploy button
             deploy_form_selector = ".popover-menu__link--deploy"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, deploy_form_selector))
-            deploy_form_btn = self.driver.find_elements_by_css_selector(deploy_form_selector)
-            deploy_form_btn[0].click()
+            # deploy_form_btn = self.driver.find_elements_by_css_selector(deploy_form_selector)
+            deploy_form_btn_el = driver.wait.until(EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, deploy_form_selector)
+            ))
+            deploy_form_btn_el.click()
 
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//div[text()='deployed form']"))
 
