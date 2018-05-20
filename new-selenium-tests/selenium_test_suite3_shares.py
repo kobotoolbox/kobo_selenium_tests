@@ -33,6 +33,7 @@ from tests import export_data_to_xls_test
 from tests import verify_no_forms_test
 from tests import edit_name_description_test
 from tests import archive_project_test
+from tests import load_map_test
 from tests import logout_test
 
 
@@ -154,7 +155,31 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': login_test.LoginTest,
             'test_method': 'test_login'
         },
+        'test_102_delete_all_forms': {
+            'test_class': delete_all_forms_test.DeleteAllFormsTest,
+            'test_method': 'delete_all_forms'
+        },
 
+        'test_103_new_form': {
+            'test_class': new_form_from_scratch_test.NewFormFromScratchTest,
+            'test_method': 'create_new_form_from_scratch'
+        },
+        'test_104_add_sample_question': {
+            'test_class': add_sample_questions_test.AddSampleQuestionsTest,
+            'test_method': 'add_questions_test'
+        },
+        'test_108_deploy_form': {
+            'test_class': deploy_imported_form_test.DeployImportedFormTest,
+            'test_method': 'deploy_form'
+        },
+        'test_109_submit_from_enketo': {
+            'test_class': enketo_form_submission_test.EnketoFormSubmissionTest,
+            'test_method': 'submit_from_enketo'
+        },
+        'test_110_load_map': {
+            'test_class': load_map_test.LoadMapTest,
+            'test_method': 'load_map'
+        },
         'test_114_add_new_question_block': {
             'test_class': add_new_question_block_test.AddNewQuestionBlockTest,
             'test_method': 'add_new_question_block'
@@ -169,10 +194,10 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_class': add_question_block_to_collection_test.AddQuestionBlockToCollectionTest,
             'test_method': 'add_question_block_to_collection'
         },
-        'test_311_share_collection': {
-            'test_class': share_collection_test.ShareCollectionTest,
-            'test_method': 'share_collection'
-        },
+        # 'test_311_share_collection': {
+        #     'test_class': share_collection_test.ShareCollectionTest,
+        #     'test_method': 'share_collection'
+        # },
 
         'test_312_delete_collection': {
             'test_class': delete_collection_test.DeleteCollectionTest,
@@ -198,6 +223,10 @@ class Test_Selenium(empty_test.EmptyTest):
         'test_317_archive_project': {
             'test_class': archive_project_test.ArchiveProjectTest,
             'test_method': 'archive_project'
+        },
+        'test_400_new_form': {
+            'test_class': new_form_from_scratch_test.NewFormFromScratchTest,
+            'test_method': 'create_new_form_from_scratch'
         },
 
         'test_522_test_logout': {
