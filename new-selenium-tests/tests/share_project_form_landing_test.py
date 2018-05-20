@@ -87,12 +87,12 @@ class ShareProjectFormLandingTest(empty_test.EmptyTest):
             ))
 
             if not share_by_link_checkbox_el.is_selected():
-                print "share_by_link_checkbox started out NOT selected"
+                print "share_by_link_checkbox started out NOT selected. Select."
                 # The checkbox doesn't want to accept a click (It delivers an ElementNotVisibleException.)
                 # But the SPACE key works.
                 share_by_link_checkbox_el.send_keys(Keys.SPACE)
             else:
-                print "share_by_link_checkbox is already selected; deselect; reselect."
+                print "share_by_link_checkbox is already selected; Deselect; Reselect."
                 share_by_link_checkbox_el.send_keys(Keys.SPACE)
                 time.sleep(1)
                 share_by_link_checkbox_el.send_keys(Keys.SPACE)
@@ -102,7 +102,6 @@ class ShareProjectFormLandingTest(empty_test.EmptyTest):
                 (By.XPATH, link_value_selector)
             ))
             if link_value_el.is_displayed():
-                print link_value_el.get_attribute("value")
                 link = link_value_el.get_attribute("value")
 
             # Click INVITE button
