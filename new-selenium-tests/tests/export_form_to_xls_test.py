@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import unittest
 import empty_test
 import time
@@ -11,6 +13,7 @@ class ExportFormToXlsTest(empty_test.EmptyTest):
     def export_form_to_xls(self):
         try:
             driver = self.driver
+            driver.wait = WebDriverWait(driver, 5)
             self.mouse = webdriver.ActionChains(self.driver)
             driver.get(self.base_url + "#/forms")
 
@@ -31,9 +34,10 @@ class ExportFormToXlsTest(empty_test.EmptyTest):
 
             # click on the Download as XLS button
             xls_link_selector = ".popover-menu__link.popover-menu__link--dl-xls"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, xls_link_selector))
-            xls_link = self.driver.find_elements_by_css_selector(xls_link_selector)
-            xls_link[0].click()
+            xls_link_el = driver.wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, xls_link_selector)
+            ))
+            xls_link_el.click()
 
             self.status("PASSED")
 

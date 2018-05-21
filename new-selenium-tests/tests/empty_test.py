@@ -4,6 +4,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+
 import unittest
 import os
 import glob
@@ -55,9 +57,63 @@ class EmptyTest(unittest.TestCase):
 
     def clickSideBarNewBtn(self):
         driver = self.driver
+
+        # when /#/forms is devoid of forms, the “NEW” button is accessed the 'button' selector.
+        # And when there is a form already created, the same button is accessed via the 'a..'selector
         new_btn_selector = "//a[contains(@class, 'popover-menu__toggle') and text()='new']"
-        self.assertTrue(self.is_element_present_with_wait(By.XPATH, new_btn_selector))
-        driver.find_element_by_xpath(new_btn_selector).click()
+        new_button_el = driver.find_elements_by_xpath(new_btn_selector)
+        if len(new_button_el) > 0 and new_button_el[0].is_displayed():
+            new_button_el[0].click()
+            print("FOUND THE LINK CREATE ACTIVITY! and Clicked it!")
+        else:
+            new_btn_selector = "//button[contains(@class, 'mdl-button--raised') and text()='new']"
+            new_button_el = driver.find_elements_by_xpath(new_btn_selector)
+            new_button_el[0].click()
+            print ("Button")
+
+    def startNewProject(self, name):
+        driver = self.driver
+
+        # when /#/forms is devoid of forms, the “NEW” button is accessed the 'button' selector.
+        # And when there is a form already created, the same button is accessed via the 'a..'selector
+        new_btn_selector = "//a[contains(@class, 'popover-menu__toggle') and text()='new']"
+        new_button_el = driver.find_elements_by_xpath(new_btn_selector)
+        if len(new_button_el) > 0 and new_button_el[0].is_displayed():
+            new_button_el[0].click()
+            print("FOUND THE LINK CREATE ACTIVITY! and Clicked it!")
+        else:
+            new_btn_selector = "//button[contains(@class, 'mdl-button--raised') and text()='new']"
+            new_button_el = driver.find_elements_by_xpath(new_btn_selector)
+            new_button_el[0].click()
+            print ("Button")
+
+            self.assertTrue(self.is_element_present_with_wait(By.ID, "name"))
+            driver.find_element_by_css_selector("#name").send_keys(name)
+
+            # fill form description
+            description_selector = ".form-modal__item:nth-child(2) textarea"
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, description_selector))
+            driver.find_element_by_css_selector(description_selector).send_keys("My form's description")
+
+            # select form sector
+            sector_input = ".form-modal__item--sector .Select-input input"
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, sector_input))
+            sector_el = driver.find_element_by_css_selector(sector_input)
+            sector_el.send_keys("Public Administration")
+            sector_el.send_keys(Keys.ENTER)
+
+            # fill country input
+            country_input = ".form-modal__item--country .Select-input input"
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, country_input))
+            country_el = driver.find_element_by_css_selector(country_input)
+            country_el.send_keys("United States")
+            country_el.send_keys(Keys.ENTER)
+
+            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-modal__item--actions button"))
+            submit_button = driver.find_element(By.CSS_SELECTOR, ".form-modal__item--actions button")
+            submit_button.send_keys(Keys.ENTER)
+
+
 
     def close_alert_and_get_its_text(self):
         try:
@@ -71,7 +127,7 @@ class EmptyTest(unittest.TestCase):
         finally:
             self.accept_next_alert = True
 
-    def add_new_question(self, question_name, question_type, waiting_time=1):
+    def add_new_question(self, question_name, question_type, waiting_time=2):
         driver = self.driver
         self.mouse = webdriver.ActionChains(self.driver)
         # create a new empty question
@@ -193,6 +249,9 @@ class EmptyTest(unittest.TestCase):
         test_image = os.getcwd()+"/kobo-test-image.png"
         self.driver.find_element_by_css_selector(form_name_field).send_keys(test_image)
 
+
+
+
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, validate_btn))
         self.driver.find_element_by_css_selector(validate_btn).click()
 
@@ -226,6 +285,16 @@ class EmptyTest(unittest.TestCase):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
 
+    @staticmethod
+    def navigate_to_main_page(self):
+        try:
+            driver = self.driver
+            driver.wait = WebDriverWait(driver, 5)
+            self.mouse = webdriver.ActionChains(self.driver)
+            driver.get(self.base_url + "#/forms")
+
+        except Exception as e:
+            self.handle_test_exceptions(e)
 
 if __name__ == "__main__":
     unittest.main()
