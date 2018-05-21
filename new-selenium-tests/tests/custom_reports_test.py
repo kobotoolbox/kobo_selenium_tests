@@ -61,8 +61,9 @@ class CustomReports(empty_test.EmptyTest):
             first_checkbox_el.send_keys(Keys.SPACE)
 
             text_input_el.send_keys(Keys.TAB + Keys.TAB + Keys.TAB)
+            # TODO Uploaded form created weird 'Unlabeled' question, so choosing last minus 1 to select already focused 'Name' field.
             last_checkbox_el = driver.wait.until(EC.presence_of_element_located(
-                (By.XPATH, "(//input[@name='chart_question'])[last()]")
+                (By.XPATH, "(//input[@name='chart_question'])[last()-1]")
             ))
             last_checkbox_el.send_keys(Keys.SPACE)
 
