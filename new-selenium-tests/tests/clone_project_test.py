@@ -50,11 +50,13 @@ class CloneProjectTest(empty_test.EmptyTest):
             clone_link = self.driver.find_elements_by_xpath(clone_project_selector)
             clone_link[0].click()
 
-            ok_selector = ".ajs-button.ajs-ok"
-            self.assertTrue(self.is_element_present_with_wait(By.XPATH, clone_project_selector))
+            ok_button_selector = "//button[@class='ajs-button ajs-ok' and text()='Ok']"
+            # delete_button = self.driver.find_elements_by_css_selector(ok_selector)
+            ok_button_el = driver.wait.until(EC.presence_of_element_located(
+                (By.XPATH, ok_button_selector)
+            ))
 
-            ok_button = self.driver.find_elements_by_css_selector(ok_selector)
-            ok_button[0].click()
+            ok_button_el.click()
 
 
             self.status("PASSED")
