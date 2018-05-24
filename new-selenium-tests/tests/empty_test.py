@@ -56,21 +56,6 @@ class EmptyTest(unittest.TestCase):
             return False
         return True
 
-    def clickSideBarNewBtn(self):
-        driver = self.driver
-
-        # when /#/forms is devoid of forms, the “NEW” button is accessed the 'button' selector.
-        # And when there is a form already created, the same button is accessed via the 'a..'selector
-        new_btn_selector = "//a[contains(@class, 'popover-menu__toggle') and text()='new']"
-        new_button_el = driver.find_elements_by_xpath(new_btn_selector)
-        if len(new_button_el) > 0 and new_button_el[0].is_displayed():
-            new_button_el[0].click()
-            print("FOUND THE LINK CREATE ACTIVITY! and Clicked it!")
-        else:
-            new_btn_selector = "//button[contains(@class, 'mdl-button--raised') and text()='new']"
-            new_button_el = driver.find_elements_by_xpath(new_btn_selector)
-            new_button_el[0].click()
-            print ("Button")
 
     def startNewProject(self, name):
         driver = self.driver

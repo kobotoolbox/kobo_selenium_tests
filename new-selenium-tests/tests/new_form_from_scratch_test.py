@@ -21,33 +21,7 @@ class NewFormFromScratchTest(empty_test.EmptyTest):
             driver.get(self.base_url + "#/forms")
             driver.maximize_window()
 
-            self.clickSideBarNewBtn()
-
-            self.assertTrue(self.is_element_present_with_wait(By.ID, "name"))
-            driver.find_element_by_css_selector("#name").send_keys("My Awesome KoboToolbox Form")
-
-            # fill form description
-            description_selector = ".form-modal__item:nth-child(2) textarea"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, description_selector))
-            driver.find_element_by_css_selector(description_selector).send_keys("My form's description")
-
-            # select form sector
-            sector_input = ".form-modal__item--sector .Select-input input"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, sector_input))
-            sector_el = driver.find_element_by_css_selector(sector_input)
-            sector_el.send_keys("Public Administration")
-            sector_el.send_keys(Keys.ENTER)
-
-            # fill country input
-            country_input = ".form-modal__item--country .Select-input input"
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, country_input))
-            country_el = driver.find_element_by_css_selector(country_input)
-            country_el.send_keys("United States")
-            country_el.send_keys(Keys.ENTER)
-
-            self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, ".form-modal__item--actions button"))
-            submit_button = driver.find_element(By.CSS_SELECTOR, ".form-modal__item--actions button")
-            submit_button.send_keys(Keys.ENTER)
+            self.startNewProject("My Awesome KoboToolbox Form")
 
             # Complete "Create New Project (step 2 of 2)"
             design_button_el = driver.wait.until(EC.presence_of_element_located(
