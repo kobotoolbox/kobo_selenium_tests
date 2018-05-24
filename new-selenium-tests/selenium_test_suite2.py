@@ -18,7 +18,7 @@ from tests import enketo_form_submission_test
 from tests import custom_reports_test
 from tests import view_table_record_test
 from tests import clone_project_test
-from tests import share_project_test
+from tests import share_project_list_view_test
 from tests import create_new_collection_test
 from tests import add_new_question_block_test
 from tests import add_question_block_to_collection_test
@@ -177,11 +177,11 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'custom_reports'
         },
 
-        'test_111_view_table_record': {
-            'test_class': view_table_record_test.ViewTableRecordTest,
-            'test_method': 'view_table_record'
-        },
-
+        # 'test_111_view_table_record': {
+        #     'test_class': view_table_record_test.ViewTableRecordTest,
+        #     'test_method': 'view_table_record'
+        # },
+        #
         # 'test_112_share_project': {
         #     'test_class': share_project_test.ShareProjectTest,
         #     'test_method': 'share_project'
@@ -204,24 +204,19 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'add_question_block_to_collection'
         },
 
-        'test_117_delete_collection': {
-            'test_class': delete_collection_test.DeleteCollectionTest,
-            'test_method': 'delete_collection'
-        },
-
         'test_118_modify_question_block_tags': {
             'test_class': modify_question_block_tags_test.ModifyQuestionBlockTagsTest,
             'test_method': 'modify_question_block_tags'
         },
-        'test_119_subscribe_library_collection': {
-            'test_class': subscribe_library_collection_test.SubscribeLibraryCollectionTest,
-            'test_method': 'subscribe_library_collection'
-        },
+        # 'test_119_subscribe_library_collection': {
+        #     'test_class': subscribe_library_collection_test.SubscribeLibraryCollectionTest,
+        #     'test_method': 'subscribe_library_collection'
+        # },
+
         'test_120_delete_library_block': {
             'test_class': delete_library_block_test.DeleteLibraryBlockTest,
             'test_method': 'delete_library_block'
         },
-
 
         'test_220_delete_all_forms': {
             'test_class': delete_all_forms_test.DeleteAllFormsTest,

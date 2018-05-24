@@ -23,7 +23,6 @@ class EditNameDescriptionTest(empty_test.EmptyTest):
             driver.get(self.base_url + "#/forms")
 
             # click into form summary page
-
             form_link_selector = "//a[@data-kind='asset']/descendant::span[text()[contains(.,'My Awesome KoboToolbox Form')]]"
             form_link_el = self.driver.wait.until(EC.visibility_of_element_located(
                 (By.XPATH, form_link_selector)

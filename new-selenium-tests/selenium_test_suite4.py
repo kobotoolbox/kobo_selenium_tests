@@ -192,7 +192,6 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'export_data'
         },
 
-        #
         'test_109_load_map': {
             'test_class': load_map_test.LoadMapTest,
             'test_method': 'load_map'
@@ -250,15 +249,15 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'modify_question_block_tags'
         },
 
-        'test_311_share_collection': {
-            'test_class': share_collection_test.ShareCollectionTest,
-            'test_method': 'share_collection'
-        },
+        # 'test_311_share_collection': {
+        #     'test_class': share_collection_test.ShareCollectionTest,
+        #     'test_method': 'share_collection'
+        # },
 
-        'test_312_delete_collection': {
-            'test_class': delete_collection_test.DeleteCollectionTest,
-            'test_method': 'delete_collection'
-        },
+        # 'test_312_delete_collection': {
+        #     'test_class': delete_collection_test.DeleteCollectionTest,
+        #     'test_method': 'delete_collection'
+        # },
         'test_313_delete_library_block': {
             'test_class': delete_library_block_test.DeleteLibraryBlockTest,
             'test_method': 'delete_library_block'

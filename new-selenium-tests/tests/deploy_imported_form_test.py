@@ -29,7 +29,7 @@ class DeployImportedFormTest(empty_test.EmptyTest):
 
             time.sleep(1)
 
-            # click on the deploy button
+            # click on the deploy menu item
             deploy_form_selector = ".popover-menu__link--deploy"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, deploy_form_selector))
             # deploy_form_btn = self.driver.find_elements_by_css_selector(deploy_form_selector)

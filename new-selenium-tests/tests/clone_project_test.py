@@ -21,11 +21,6 @@ class CloneProjectTest(empty_test.EmptyTest):
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link_selector))
             form_link_el = driver.find_elements_by_css_selector(form_link_selector)
 
-            # TODO Why doesn't this work?
-            # form_link_el = driver.wait.until(EC.presence_of_element_located(
-            #    (By.CSS_SELECTOR, form_link_selector)
-            #))
-
             form_link_el[0].click()
             print driver.current_url
 

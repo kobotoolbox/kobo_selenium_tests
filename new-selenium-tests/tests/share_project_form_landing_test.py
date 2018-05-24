@@ -138,7 +138,7 @@ class ShareProjectFormLandingTest(empty_test.EmptyTest):
             self.assertFalse(self.is_element_present_with_wait(By.CSS_SELECTOR,
                             ".asset-row__action-icon--sharing", how_long=3))
             ShareProjectFormLandingTest.navigate_to_form_tab(self)
-            # We ensure thatthe page is going to the same link that was shared in the Sharing Permission, above
+            # We ensure that the page is going to the same link that was shared in the Sharing Permission, above
             ShareProjectFormLandingTest.wait_for_correct_current_url(self, link + "/landing")
 
             self.assertTrue(self.is_element_present_with_wait(By.XPATH, "//a[@data-tip='Editing capabilities not granted, you can only view this form']"))
