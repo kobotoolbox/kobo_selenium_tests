@@ -52,7 +52,7 @@ class CloneProjectTest(empty_test.EmptyTest):
 
             ok_button_selector = "//button[@class='ajs-button ajs-ok' and text()='Ok']"
             # delete_button = self.driver.find_elements_by_css_selector(ok_selector)
-            ok_button_el = driver.wait.until(EC.presence_of_element_located(
+            ok_button_el = driver.wait.until(EC.visibility_of_element_located(
                 (By.XPATH, ok_button_selector)
             ))
 
