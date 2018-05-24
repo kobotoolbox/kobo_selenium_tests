@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -153,6 +154,7 @@ class EmptyTest(unittest.TestCase):
 
     def delete_form(self):
         driver = self.driver
+        driver.wait = WebDriverWait(driver, 5)
         self.mouse = webdriver.ActionChains(self.driver)
 
         # Hover over the assets action buttons
@@ -171,8 +173,10 @@ class EmptyTest(unittest.TestCase):
         # click on the Delete button
         delete_form_selector = ".popover-menu__link--delete"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, delete_form_selector))
-        delete_form_btn = self.driver.find_elements_by_css_selector(delete_form_selector)
-        delete_form_btn[0].click()
+        delete_form_button = driver.wait.until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, delete_form_selector)
+            ))
+        delete_form_button.click()
 
         sleep(0.5)
 
@@ -227,11 +231,15 @@ class EmptyTest(unittest.TestCase):
         self.driver.find_element_by_css_selector(".modal-x").click()
 
     def fill_out_enketo_form(self, validate_btn):
+        # driver = self.driver
+        self.driver.wait = WebDriverWait(self.driver, 5)
         # fill out name
         form_name_field = "input[name$='/Name']"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_name_field))
-        self.driver.find_element_by_css_selector(form_name_field).send_keys("Kobo")
-
+        # self.driver.find_element_by_css_selector(form_name_field).send_keys("Kobo")
+        self.driver.wait.until(EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, form_name_field)
+            )).send_keys("Kobo")
         # fill out lastname
         form_name_field = "input[name$='/LastName']"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_name_field))
