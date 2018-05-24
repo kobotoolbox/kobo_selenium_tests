@@ -215,7 +215,7 @@ class Test_Selenium(empty_test.EmptyTest):
         #     'test_class': share_project_list_view_test.ShareProjectListViewTest,
         #     'test_method': 'share_project_list_view'
         # },
-g
+
         'test_204_edit_name_description': {
             'test_class': edit_name_description_test.EditNameDescriptionTest,
             'test_method': 'edit_name_description'
