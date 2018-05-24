@@ -215,10 +215,7 @@ class Test_Selenium(empty_test.EmptyTest):
         #     'test_class': share_project_list_view_test.ShareProjectListViewTest,
         #     'test_method': 'share_project_list_view'
         # },
-        'test_203_remove_shared_user': {
-            'test_class': remove_shared_user_test.RemoveSharedUserTest,
-            'test_method': 'remove_shared_user'
-        },
+g
         'test_204_edit_name_description': {
             'test_class': edit_name_description_test.EditNameDescriptionTest,
             'test_method': 'edit_name_description'
@@ -253,10 +250,10 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'modify_question_block_tags'
         },
 
-        # 'test_311_share_collection': {
-        #     'test_class': share_collection_test.ShareCollectionTest,
-        #     'test_method': 'share_collection'
-        # },
+        'test_311_share_collection': {
+            'test_class': share_collection_test.ShareCollectionTest,
+            'test_method': 'share_collection'
+        },
 
         'test_312_delete_collection': {
             'test_class': delete_collection_test.DeleteCollectionTest,
@@ -267,18 +264,18 @@ class Test_Selenium(empty_test.EmptyTest):
             'test_method': 'delete_library_block'
         },
 
-    #     'test_401_delete_all_forms': {
-    #         'test_class': delete_all_forms_test.DeleteAllFormsTest,
-    #         'test_method': 'delete_all_forms'
-    #     },
-    #     'test_402_test_verify_no_forms': {
-    #         'test_class': verify_no_forms_test.VerifyNoFormsTest,
-    #         'test_method': 'test_verify_no_forms'
-    #     },
-    #     'test_500_test_logout': {
-    #         'test_class': logout_test.LogoutTest,
-    #         'test_method': 'test_logout'
-    #     }
+        'test_401_delete_all_forms': {
+            'test_class': delete_all_forms_test.DeleteAllFormsTest,
+            'test_method': 'delete_all_forms'
+        },
+        'test_402_test_verify_no_forms': {
+            'test_class': verify_no_forms_test.VerifyNoFormsTest,
+            'test_method': 'test_verify_no_forms'
+        },
+        'test_500_test_logout': {
+            'test_class': logout_test.LogoutTest,
+            'test_method': 'test_logout'
+        }
     }
 
     # Run all the tests based on the values from ALL_TESTS

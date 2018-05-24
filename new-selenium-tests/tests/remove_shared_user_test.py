@@ -24,7 +24,8 @@ class RemoveSharedUserTest(empty_test.EmptyTest):
             driver.wait = WebDriverWait(driver, 5)
             driver.get(self.base_url + "#/forms")
             time.sleep(2)
-            # Click the title button
+
+            # Click the title
             form_link = ".asset-row__celllink--titled"
             self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, form_link))
             form_link_el = driver.find_elements_by_css_selector(form_link)
@@ -34,12 +35,10 @@ class RemoveSharedUserTest(empty_test.EmptyTest):
         except Exception as e:
             self.handle_test_exceptions(e)
 
-
     @staticmethod
     def wait_for_correct_current_url(self, desired_url):
         self.driver.wait.until(
             lambda driver: driver.current_url == desired_url)
-
 
     def remove_shared_user(self):
         try:
@@ -53,7 +52,6 @@ class RemoveSharedUserTest(empty_test.EmptyTest):
             ))
             share_link_el.click()
 
-
             # Remove the shared account
             trash_icon_selector = ".k-icon-trash"
             # self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, trash_icon_selector))
@@ -62,8 +60,8 @@ class RemoveSharedUserTest(empty_test.EmptyTest):
             ))
             trash_icon_el.click()
             time.sleep(2)
-            #ToDO: check with John if this assertion is appropriate
-            body_text= self.driver.find_element_by_tag_name('body').text
+            # TODO: check with John if this assertion is appropriate
+            body_text = self.driver.find_element_by_tag_name('body').text
             self.assertNotIn("the text you want to check for", body_text)
 
             # TODO: Deselect the share_by_link_checkbox
@@ -74,7 +72,6 @@ class RemoveSharedUserTest(empty_test.EmptyTest):
             close_record_detail_el.click()
 
             self.status("PASSED")
-
 
         except Exception as e:
             self.handle_test_exceptions(e)
