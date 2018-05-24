@@ -173,7 +173,7 @@ class EmptyTest(unittest.TestCase):
         # click on the Delete button
         delete_form_selector = ".popover-menu__link--delete"
         self.assertTrue(self.is_element_present_with_wait(By.CSS_SELECTOR, delete_form_selector))
-        delete_form_button = driver.wait.until(EC.presence_of_element_located(
+        delete_form_button = driver.wait.until(EC.visibility_of_element_located(
                 (By.CSS_SELECTOR, delete_form_selector)
             ))
         delete_form_button.click()
