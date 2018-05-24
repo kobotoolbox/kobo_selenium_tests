@@ -1,10 +1,44 @@
 # -*- coding: utf-8 -*-
+
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+USERNAME = 'selenium_test'
+PASSWORD = USERNAME # well, i'll be!
+KPI_BASE_URL = 'https://kf.kobotoolbox.org/'
+
+class AuthenticationTest(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.wait = WebDriverWait(self.driver, 5)
+
+    def test_login(self):
+        self.driver.get(KPI_BASE_URL)
+        username_el = self.driver.find_element(By.NAME, 'username')
+        username_el.send_keys(USERNAME)
+        password_el = self.driver.find_element(By.NAME, 'password')
+        password_el.send_keys(PASSWORD)
+        username_el.submit()
+        self.assertTrue(self.driver.wait.until(EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, ".account-box")
+        )))
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+
+
+'''
+
+
+
 from selenium.webdriver.common.by import By
 import unittest
-import empty_test
 import traceback
-
-from logout_test import LogoutTest
 
 
 class LoginTest(empty_test.EmptyTest):
@@ -58,3 +92,4 @@ class LoginTest(empty_test.EmptyTest):
 
 if __name__ == "__main__":
     unittest.main()
+'''
