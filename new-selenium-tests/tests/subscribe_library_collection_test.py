@@ -26,6 +26,8 @@ class SubscribeLibraryCollectionTest(empty_test.EmptyTest):
             ))
             public_collections_el.click()
 
+            self.time.sleep(1)
+
             # Subscribe to specific collection - Step 1 of 3
             library_block_selector = "//span[@class='form-sidebar__iteminner' and text()='Sample Library Blocks']"
             library_block_selector_el = driver.wait.until(EC.visibility_of_element_located(
