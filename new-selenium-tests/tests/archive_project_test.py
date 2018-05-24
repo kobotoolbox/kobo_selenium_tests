@@ -35,7 +35,7 @@ class ArchiveProjectTest(empty_test.EmptyTest):
 
             # click on the Archive button
             archive_link_selector = ".popover-menu__link.popover-menu__link--archive"
-            archive_link_el = driver.wait.until(EC.presence_of_element_located(
+            archive_link_el = driver.wait.until(EC.visibility_of_element_located(
                 (By.CSS_SELECTOR, archive_link_selector)
             ))
             archive_link_el.click()
